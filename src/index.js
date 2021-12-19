@@ -1,4 +1,4 @@
-import MidiKey from '#src/lib/midikey';
+import MidiKey from '#src/lib/midikeyout';
 
 const midiKey = new MidiKey();
 
