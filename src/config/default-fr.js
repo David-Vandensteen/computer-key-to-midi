@@ -1,8 +1,23 @@
+/* eslint-disable no-param-reassign */
+const CONTROL_CHANGE = 176;
+
 export default {
   default: {
-    value: 64,
-    max: 128,
-    min: 0,
+    cc: {
+      value: 64,
+      max: 128,
+      min: 0,
+    },
+    key: {
+      onPress: ({ midiSender, key, cc }) => {
+        const { id } = cc;
+        const { increment } = key;
+        cc.value += increment;
+        const message = [CONTROL_CHANGE, id, cc.value];
+        midiSender(message);
+      },
+      onRelease: () => {},
+    },
   },
   keys: [
     {
@@ -36,12 +51,13 @@ export default {
       cc: 2,
     },
   ],
-  /*
+  /* you can overide default cc values here
   ccs: {
     1: {
-      value: 64,
-      max: 100,
-      min: 5,
+      id: 1,
+      value: 1,
+      max: 3,
+      min: 1,
     },
   },
   */

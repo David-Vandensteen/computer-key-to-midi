@@ -6,11 +6,29 @@ const { log } = console;
 
 export default class MidiKeyOut extends midi.output {
   register(portId) {
+    if (!keyConfig.ccs) keyConfig.ccs = {};
     this.openPort(portId);
     return this;
   }
 
+  static createDefaultCC({ id, defaultCC }) {
+    const { value, max, min } = defaultCC;
+    keyConfig.ccs[id] = {
+      ...keyConfig.ccs[id],
+      ...{
+        id,
+        value,
+        max,
+        min,
+      },
+    };
+  }
+
   start() {
+    const { ccs, keys } = keyConfig;
+    const { cc: defaultCC, key: defaultKey } = keyConfig.default;
+    const { onPress, onRelease } = defaultKey;
+
     readline.emitKeypressEvents(process.stdin);
     process.stdin.setRawMode(true);
     process.stdin.on('keypress', (str, keypress) => {
@@ -18,24 +36,26 @@ export default class MidiKeyOut extends midi.output {
         this.closePort();
         process.exit();
       } else {
-        const key = keyConfig.keys.find((k) => k.key === keypress.sequence);
+        let key = keys.find((k) => k.key === keypress.sequence);
         if (key) {
-          if (!keyConfig.ccs) keyConfig.ccs = {};
-          if (!keyConfig.ccs[key.cc]) {
-            const { value, max, min } = keyConfig.default;
-            keyConfig.ccs[key.cc] = {
-              value,
-              max,
-              min,
-            };
+          if (!ccs[key.cc]) {
+            MidiKeyOut.createDefaultCC({ id: key.cc, defaultCC });
           }
-          log(keyConfig);
-          const cc = keyConfig.ccs[key.cc];
-          cc.value += key.increment;
+          const cc = ccs[key.cc];
 
           if (cc.value > cc.max) cc.value = cc.max;
           if (cc.value < cc.min) cc.value = cc.min;
-          this.sendMessage([176, key.cc, keyConfig.ccs[key.cc].value]);
+
+          if (!key.onPress) key = { ...key, ...{ onPress } };
+          if (!key.onRelease) key = { ...key, ...{ onRelease } };
+
+          key.onPress({
+            midiSender: this.sendMessage.bind(this),
+            key,
+            cc,
+            ccs,
+          });
+          log(keyConfig);
         }
       }
     });
