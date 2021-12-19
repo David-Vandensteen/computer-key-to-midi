@@ -1,4 +1,4 @@
-import readline from 'readline';
+import { emitKeypressEvents } from 'readline';
 import midi from 'midi';
 import keyConfig from '#src/config/default-fr';
 
@@ -6,56 +6,82 @@ const { log } = console;
 
 export default class MidiKeyOut extends midi.output {
   register(portId) {
-    if (!keyConfig.ccs) keyConfig.ccs = {};
+    const { ccs } = keyConfig;
+    const { keys } = keyConfig;
+    const { onPress } = keyConfig.default.key;
+    const { cc: defaultCC } = keyConfig.default;
     this.openPort(portId);
+
+    if (!ccs) keyConfig.ccs = [];
+
+    for (let i = 0; i < keys.length; i += 1) {
+      const key = keys[i];
+      if (!key.onPress) keyConfig.keys[i].onPress = onPress;
+
+      if (!keyConfig.ccs[key.cc]) {
+        keyConfig.ccs.push(defaultCC);
+      } // TODO: else // TODO: test min & max value
+
+      if (keyConfig.ccs[key.cc].onCreate) {
+        keyConfig.ccs[key.cc].onCreate({
+          midiSender: this.sendMessage.bind(this),
+          cc: keyConfig.ccs[key.cc],
+          key,
+        });
+      }
+    }
     return this;
   }
 
-  static createDefaultCC({ id, defaultCC }) {
-    const { value, max, min } = defaultCC;
-    keyConfig.ccs[id] = {
-      ...keyConfig.ccs[id],
-      ...{
-        id,
-        value,
-        max,
-        min,
-      },
-    };
+  sendMessage(message) {
+    const [type, id, value] = message;
+    const { max, min } = keyConfig.ccs[id];
+
+    if (value >= max) keyConfig.ccs[id].value = max;
+    else if (value <= min) keyConfig.ccs[id].value = min;
+
+    if (value <= 0) keyConfig.ccs[id].value = 0;
+    else if (value >= 127) keyConfig.ccs[id].value = 127;
+
+    const safeMessage = [type, id, keyConfig.ccs[id].value];
+    super.sendMessage(safeMessage);
+    log(safeMessage);
+    return this;
+  }
+
+  stop() {
+    log('');
+    log('stop application signal');
+    log('close port');
+    log('exit');
+    this.closePort();
+    process.exit();
   }
 
   start() {
-    const { ccs, keys } = keyConfig;
-    const { cc: defaultCC, key: defaultKey } = keyConfig.default;
-    const { onPress, onRelease } = defaultKey;
-
-    readline.emitKeypressEvents(process.stdin);
+    const { stdin } = process;
+    emitKeypressEvents(process.stdin);
     process.stdin.setRawMode(true);
-    process.stdin.on('keypress', (str, keypress) => {
-      if (keypress.ctrl && keypress.name === 'c') {
-        this.closePort();
-        process.exit();
-      } else {
-        let key = keys.find((k) => k.key === keypress.sequence);
+
+    stdin.on('keypress', (str, keypressing) => {
+      if (keypressing.ctrl && keypressing.name === 'c') this.stop();
+      else {
+        const { ccs, keys } = keyConfig;
+        const key = keys.find((k) => k.name === keypressing.sequence);
+
         if (key) {
-          if (!ccs[key.cc]) {
-            MidiKeyOut.createDefaultCC({ id: key.cc, defaultCC });
-          }
           const cc = ccs[key.cc];
-
-          if (cc.value > cc.max) cc.value = cc.max;
-          if (cc.value < cc.min) cc.value = cc.min;
-
-          if (!key.onPress) key = { ...key, ...{ onPress } };
-          if (!key.onRelease) key = { ...key, ...{ onRelease } };
-
-          key.onPress({
+          const message = {
             midiSender: this.sendMessage.bind(this),
-            key,
             cc,
             ccs,
-          });
-          log(keyConfig);
+            key,
+            keys,
+          };
+
+          key.onPress(message);
+          cc.onUpdate(message);
+          // log(keyConfig);
         }
       }
     });
