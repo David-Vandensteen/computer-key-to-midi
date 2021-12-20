@@ -59,6 +59,7 @@ export default {
     {
       id: 2,
       max: 20,
+      onCreate: () => { console.log('custom create'); },
     },
   ],
   */

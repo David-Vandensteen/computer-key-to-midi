@@ -19,6 +19,11 @@ export default class MidiKeyOut extends midi.output {
         let configCC = {};
         if (config.ccs) configCC = config.ccs.find((c) => c.id === key.cc);
         this.config.ccs.push({ ...defaultCC, id: key.cc, ...configCC });
+        this.config.ccs[key.cc].onCreate({
+          midiSender: this.sendMessage.bind(this),
+          key,
+          cc: this.config.ccs[key.cc],
+        });
       }
       return this.config;
     });
@@ -69,7 +74,6 @@ export default class MidiKeyOut extends midi.output {
             key,
             keys,
           };
-
           key.onPress(message);
           cc.onUpdate(message);
         }
