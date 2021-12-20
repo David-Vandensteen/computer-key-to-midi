@@ -1,49 +1,41 @@
 import { emitKeypressEvents } from 'readline';
 import midi from 'midi';
-import keyConfig from '#src/config/default-fr';
 
 const { log } = console;
 
 export default class MidiKeyOut extends midi.output {
-  register(portId) {
-    const { ccs } = keyConfig;
-    const { keys } = keyConfig;
-    const { onPress } = keyConfig.default.key;
-    const { cc: defaultCC } = keyConfig.default;
+  register({ portId, config }) {
+    this.config = {};
+    this.config.keys = [];
+    this.config.ccs = [];
+    const { keys } = config;
+    const { key: defaultKey, cc: defaultCC } = config.default;
     this.openPort(portId);
 
-    if (!ccs) keyConfig.ccs = [];
-
-    for (let i = 0; i < keys.length; i += 1) {
-      const key = keys[i];
-      if (!key.onPress) keyConfig.keys[i].onPress = onPress;
-
-      if (!keyConfig.ccs[key.cc]) {
-        keyConfig.ccs.push(defaultCC);
-      } // TODO: else // TODO: test min & max value
-
-      if (keyConfig.ccs[key.cc].onCreate) {
-        keyConfig.ccs[key.cc].onCreate({
-          midiSender: this.sendMessage.bind(this),
-          cc: keyConfig.ccs[key.cc],
-          key,
-        });
+    keys.map((k, id) => {
+      const key = { ...defaultKey, ...k, id };
+      this.config.keys.push(key);
+      if ((this.config.ccs[key.cc] || {}).id !== key.cc) {
+        let configCC = {};
+        if (config.ccs) configCC = config.ccs.find((c) => c.id === key.cc);
+        this.config.ccs.push({ ...defaultCC, id: key.cc, ...configCC });
       }
-    }
+      return this.config;
+    });
     return this;
   }
 
   sendMessage(message) {
     const [type, id, value] = message;
-    const { max, min } = keyConfig.ccs[id];
+    const { max, min } = this.config.ccs[id];
 
-    if (value >= max) keyConfig.ccs[id].value = max;
-    else if (value <= min) keyConfig.ccs[id].value = min;
+    if (value >= max) this.config.ccs[id].value = max;
+    else if (value <= min) this.config.ccs[id].value = min;
 
-    if (value <= 0) keyConfig.ccs[id].value = 0;
-    else if (value >= 127) keyConfig.ccs[id].value = 127;
+    if (value <= 0) this.config.ccs[id].value = 0;
+    else if (value >= 127) this.config.ccs[id].value = 127;
 
-    const safeMessage = [type, id, keyConfig.ccs[id].value];
+    const safeMessage = [type, id, this.config.ccs[id].value];
     super.sendMessage(safeMessage);
     log(safeMessage);
     return this;
@@ -66,9 +58,8 @@ export default class MidiKeyOut extends midi.output {
     stdin.on('keypress', (str, keypressing) => {
       if (keypressing.ctrl && keypressing.name === 'c') this.stop();
       else {
-        const { ccs, keys } = keyConfig;
+        const { ccs, keys } = this.config;
         const key = keys.find((k) => k.name === keypressing.sequence);
-
         if (key) {
           const cc = ccs[key.cc];
           const message = {
@@ -81,7 +72,6 @@ export default class MidiKeyOut extends midi.output {
 
           key.onPress(message);
           cc.onUpdate(message);
-          // log(keyConfig);
         }
       }
     });

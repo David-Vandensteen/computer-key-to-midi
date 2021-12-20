@@ -8,8 +8,8 @@ export default {
       value: 64,
       max: 127, // 127
       min: 0, // 0
-      onCreate: ({ key }) => { log('onCreate : key ', key.name, ' was created'); },
-      onUpdate: ({ key, cc }) => { log('onUpdate : cc ', key.cc, ' was updated with the value ', cc.value); },
+      onCreate: ({ key }) => { log('onCreate : key ', key.name, ' is created'); },
+      onUpdate: ({ key, cc }) => { log('onUpdate : cc ', key.cc, ' is updated with the value ', cc.value); },
     },
     key: {
       onPress: ({ midiSender, key, cc }) => {
@@ -17,7 +17,7 @@ export default {
         cc.value += increment;
         const message = [CONTROL_CHANGE, key.cc, cc.value];
         midiSender(message);
-        log('onPress : ', key.name, ' was pressed');
+        log('onPress : ', key.name, ' is pressed');
       },
     },
   },
@@ -53,14 +53,13 @@ export default {
       cc: 2,
     },
   ],
-  // TODO : struct change
-  /* you can overide default cc values here
-  ccs: {
-    1: {
-      value: 1,
-      max: 3,
-      min: 1,
+  /* you can overide default cc values here */
+  /*
+  ccs: [
+    {
+      id: 2,
+      max: 20,
     },
-  },
+  ],
   */
 };
