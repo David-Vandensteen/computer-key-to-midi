@@ -4,13 +4,29 @@ import midi from 'midi';
 const { log } = console;
 
 export default class MidiKeyOut extends midi.output {
-  register({ portId, config }) {
+  getAvailableInterfacesName() {
+    const maxPort = this.getPortCount();
+    const availablePorts = [];
+    for (let i = 0; i < maxPort; i += 1) availablePorts.push(this.getPortName(i));
+    return availablePorts;
+  }
+
+  getInterfaceIdByName(name) {
+    const maxPort = this.getPortCount();
+    for (let i = 0; i < maxPort; i += 1) {
+      if (this.getPortName(i) === name) return i;
+    }
+    return null;
+  }
+
+  register({ portName, config }) {
     this.config = {};
     this.config.keys = [];
     this.config.ccs = [];
     const { keys } = config;
     const { key: defaultKey, cc: defaultCC } = config.default;
-    this.openPort(portId);
+    // this.openPort(this.getInterfaceIdByName(portName));
+    this.openPort(1);
 
     keys.map((k, id) => {
       const key = { ...defaultKey, ...k, id };
@@ -79,6 +95,7 @@ export default class MidiKeyOut extends midi.output {
         }
       }
     });
+    log('start : end');
     return this;
   }
 }

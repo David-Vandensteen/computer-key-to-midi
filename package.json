@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/David-Vandensteen/computer-key-to-midi#readme",
   "dependencies": {
+    "inquirer": "^8.2.0",
     "midi": "^2.0.0"
   },
   "devDependencies": {
