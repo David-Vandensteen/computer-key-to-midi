@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js -i 1"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/David-Vandensteen/computer-key-to-midi#readme",
   "dependencies": {
-    "inquirer": "^8.2.0",
+    "arg": "^5.0.1",
     "midi": "^2.0.0"
   },
   "devDependencies": {

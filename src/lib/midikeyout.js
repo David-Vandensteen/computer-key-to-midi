@@ -19,14 +19,13 @@ export default class MidiKeyOut extends midi.output {
     return null;
   }
 
-  register({ portName, config }) {
+  register({ portId, config }) {
     this.config = {};
     this.config.keys = [];
     this.config.ccs = [];
     const { keys } = config;
     const { key: defaultKey, cc: defaultCC } = config.default;
-    // this.openPort(this.getInterfaceIdByName(portName));
-    this.openPort(1);
+    this.openPort(portId);
 
     keys.map((k, id) => {
       const key = { ...defaultKey, ...k, id };
