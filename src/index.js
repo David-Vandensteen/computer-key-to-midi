@@ -10,5 +10,5 @@ if (params.list) {
   log(midiKey.getAvailableInterfacesName());
   process.exit(0);
 } else {
-  midiKey.register({ portId: params.id ,config }).start();
+  midiKey.register({ portId: params.id, config }).start();
 }
