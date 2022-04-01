@@ -6,8 +6,8 @@ export default {
   default: {
     cc: {
       value: 64,
-      max: 127, // 127
-      min: 0, // 0
+      max: 127,
+      min: 0,
       onCreate: ({ key }) => { log('onCreate : key ', key.name, ' is created'); },
       onUpdate: ({ key, cc }) => { log('onUpdate : cc ', key.cc, ' is updated with the value ', cc.value); },
     },

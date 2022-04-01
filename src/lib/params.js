@@ -7,13 +7,14 @@ class Params {
     this.args = arg({
       '--id': Number,
       '--list': Boolean,
+      '--help': Boolean,
 
       // Aliases
       '-i': '--id',
       '-l': '--list',
     });
 
-    if (process.argv.length <= 1) Params.help();
+    if (process.argv.length <= 1 || this.args['--help']) Params.help();
   }
 
   static help() {
@@ -38,6 +39,10 @@ class Params {
 
   get list() {
     return this.args['--list'];
+  }
+
+  get Help() {
+    return this.args['--help'];
   }
 }
 
