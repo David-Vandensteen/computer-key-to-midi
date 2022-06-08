@@ -3,7 +3,7 @@ import midi from 'midi';
 
 const { log } = console;
 
-class MidiKeyOut extends midi.output {
+export default class MidiKeyOut extends midi.output {
   getAvailableInterfacesName() {
     const maxPort = this.getPortCount();
     const availablePorts = [];
@@ -98,7 +98,3 @@ class MidiKeyOut extends midi.output {
     return this;
   }
 }
-
-const midiKey = new MidiKeyOut();
-export default midiKey;
-export { midiKey };
