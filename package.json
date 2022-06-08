@@ -22,13 +22,13 @@
   },
   "homepage": "https://github.com/David-Vandensteen/computer-key-to-midi#readme",
   "dependencies": {
-    "arg": "^5.0.1",
+    "arg": "^5.0.2",
     "midi": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-import": "^2.24.0"
+    "eslint-plugin-import": "^2.26.0"
   }
 }
