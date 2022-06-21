@@ -1,5 +1,5 @@
 {
-  "name": "computer-key-to-midi",
+  "name": "computer-key-to-midi-server",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/David-Vandensteen/computer-key-to-midi#readme",
   "dependencies": {
     "arg": "^5.0.2",
+    "easymidi": "^2.1.0",
     "midi": "^2.0.0"
   },
   "devDependencies": {
