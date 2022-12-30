@@ -1,8 +1,21 @@
-import { rMidiClient, rMidiServer } from 'remote-midi';
+import {
+  rMidiClient,
+  rMidiServer,
+  getInputs,
+  getOutputs,
+} from 'remote-midi';
+
 import { Keyboard } from '#src/lib/keyboard';
 import config from '#src/config/default-fr';
 
 import { params, help } from '#src/lib/params';
+
+if (params.list) {
+  const { log } = console;
+  log('midi inputs :', getInputs().toString());
+  log('midi outputs :', getOutputs().toString());
+  process.exit(0);
+}
 
 if (!params.mode || !params.host || !params.port) help();
 if (params.mode !== 'server' && params.mode !== 'client') help();

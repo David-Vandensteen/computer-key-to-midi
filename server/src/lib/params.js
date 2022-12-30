@@ -16,7 +16,7 @@ const help = () => {
   log('');
   log('     Extra options:');
   log('');
-  log('   --list     -l               -- show available midi interface');
+  log('   --list     -l               -- show available midi interfaces');
   log('   --help                      -- show help');
   process.exit(0);
 };
