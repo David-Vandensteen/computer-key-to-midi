@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 const { log } = console;
-const CONTROL_CHANGE = 176;
 
 export default {
   default: {
@@ -15,7 +14,7 @@ export default {
       onPress: ({ midiSender, key, cc }) => {
         const { increment } = key;
         cc.value += increment;
-        midiSender([CONTROL_CHANGE, key.cc, cc.value]);
+        midiSender('cc', { controller: key.cc, value: cc.value });
         log('onPress : ', key.name, ' is pressed');
       },
     },

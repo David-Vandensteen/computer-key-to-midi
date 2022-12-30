@@ -9,12 +9,15 @@ const help = () => {
   log('');
   log('     Required options:');
   log('');
-  log('   -i    --id                  -- midi interface id');
+  log('   -m    --mode                -- [server\\client]');
+  log('   -i    --id                  -- midi interface id (needed on server mode)');
+  log('   -h    --host                -- host');
+  log('   -p    --port                -- port');
   log('');
   log('     Extra options:');
   log('');
   log('   --list     -l               -- show available midi interface');
-  log('   --help     -h               -- show help');
+  log('   --help                      -- show help');
   process.exit(0);
 };
 
@@ -22,27 +25,32 @@ class Params {
   constructor() {
     this.args = arg({
       '--id': Number,
+      '--mode': String,
+      '--host': String,
+      '--port': Number,
       '--list': Boolean,
       '--help': Boolean,
 
       // Aliases
       '-i': '--id',
       '-l': '--list',
-      '-h': '--help',
+      '-h': '--host',
+      '-p': '--port',
+      '-m': '--mode',
     });
   }
 
-  get id() {
-    return this.args['--id'];
-  }
+  get mode() { return this.args['--mode']; }
 
-  get list() {
-    return this.args['--list'];
-  }
+  get host() { return this.args['--host']; }
 
-  get help() {
-    return this.args['--help'];
-  }
+  get port() { return this.args['--port']; }
+
+  get id() { return this.args['--id']; }
+
+  get list() { return this.args['--list']; }
+
+  get help() { return this.args['--help']; }
 }
 
 const params = new Params();
