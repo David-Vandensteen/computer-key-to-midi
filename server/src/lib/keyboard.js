@@ -22,13 +22,28 @@ class Keyboard {
         if (config.ccs) configCC = config.ccs.find((c) => c.id === key.cc);
         this.#config.ccs.push({ ...defaultCC, id: key.cc, ...configCC });
         this.#config.ccs[key.cc].onCreate({
-          midiSender: this.#midiSender,
+          midiSender: this.midiSendNormalize,
           key,
           cc: this.#config.ccs[key.cc],
         });
       }
       return this.#config;
     });
+  }
+
+  midiSendNormalize(type, message) {
+    const { controller, value } = message;
+    const { max, min } = this.#config.ccs[controller];
+
+    if (value >= max) this.#config.ccs[controller].value = max;
+    else if (value <= min) this.#config.ccs[controller].value = min;
+
+    if (value <= 0) this.#config.ccs[controller].value = 0;
+    else if (value >= 127) this.#config.ccs[controller].value = 127;
+
+    const normalizedMessage = message;
+    normalizedMessage.value = this.#config.ccs[controller].value;
+    this.#midiSender(type, normalizedMessage);
   }
 
   static stop() {
@@ -48,7 +63,7 @@ class Keyboard {
         if (key) {
           const cc = ccs[key.cc];
           const message = {
-            midiSender: this.#midiSender,
+            midiSender: this.midiSendNormalize.bind(this),
             cc,
             ccs,
             key,
