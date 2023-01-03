@@ -19,7 +19,7 @@ if (params.list) {
 
 if (!params.mode || !params.host || !params.port) help();
 if (params.mode !== 'server' && params.mode !== 'client') help();
-if (params.mode === 'server' && !params.id) help();
+if (params.mode === 'server' && !params.interface) help();
 
 const client = () => {
   const midiClient = rMidiClient({ host: params.host, port: params.port });
@@ -29,7 +29,9 @@ const client = () => {
 };
 
 const server = () => {
-  const midiServer = rMidiServer({ host: params.host, port: params.port, midiDeviceId: params.id });
+  const midiServer = rMidiServer({
+    host: params.host, port: params.port, midiDeviceName: params.interface,
+  });
   midiServer.start();
 };
 

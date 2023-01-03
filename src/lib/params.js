@@ -10,7 +10,7 @@ const help = () => {
   log('     Required options:');
   log('');
   log('   -m    --mode                -- [server\\client]');
-  log('   -i    --id                  -- midi interface id (needed on server mode)');
+  log('   -i    --interface           -- midi interface name (needed on server mode)');
   log('   -h    --host                -- host');
   log('   -p    --port                -- port');
   log('');
@@ -24,7 +24,7 @@ const help = () => {
 class Params {
   constructor() {
     this.args = arg({
-      '--id': Number,
+      '--interface': String,
       '--mode': String,
       '--host': String,
       '--port': Number,
@@ -32,7 +32,7 @@ class Params {
       '--help': Boolean,
 
       // Aliases
-      '-i': '--id',
+      '-i': '--interface',
       '-l': '--list',
       '-h': '--host',
       '-p': '--port',
@@ -46,7 +46,7 @@ class Params {
 
   get port() { return this.args['--port']; }
 
-  get id() { return this.args['--id']; }
+  get interface() { return this.args['--interface']; }
 
   get list() { return this.args['--list']; }
 
