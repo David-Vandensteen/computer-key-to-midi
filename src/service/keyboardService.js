@@ -1,11 +1,12 @@
-/* eslint-disable lines-between-class-members */
 import { emitKeypressEvents } from 'readline';
 
 const { log } = console;
 
-class Keyboard {
+class KeyboardService {
   #midiSender;
+
   #config = {};
+
   constructor({ config, midiSender }) {
     this.#config = {};
     this.#config.keys = [];
@@ -56,7 +57,7 @@ class Keyboard {
     process.stdin.setRawMode(true);
 
     stdin.on('keypress', (str, keypressing) => {
-      if (keypressing.ctrl && keypressing.name === 'c') Keyboard.stop();
+      if (keypressing.ctrl && keypressing.name === 'c') KeyboardService.stop();
       else {
         const { ccs, keys } = this.#config;
         const key = keys.find((k) => k.name === keypressing.sequence);
@@ -79,5 +80,5 @@ class Keyboard {
   }
 }
 
-export default Keyboard;
-export { Keyboard };
+export default KeyboardService;
+export { KeyboardService };

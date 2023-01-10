@@ -14,37 +14,37 @@ import {
   getOutputs,
 } from 'remote-midi';
 
-import { Keyboard } from '#src/lib/keyboard';
+import { KeyboardService } from '#src/service/keyboardService';
 import config from '#src/config/default-fr';
 
-import { params, help } from '#src/lib/params';
+import { paramService, help } from '#src/service/paramService';
 
-if (params.list) {
+if (paramService.list) {
   const { log } = console;
   log('midi inputs :', getInputs().toString());
   log('midi outputs :', getOutputs().toString());
   process.exit(0);
 }
 
-if (!params.mode || !params.host || !params.port) help();
-if (params.mode !== 'server' && params.mode !== 'client') help();
-if (params.mode === 'server' && !params.interface) help();
+if (!paramService.mode || !paramService.host || !paramService.port) help();
+if (paramService.mode !== 'server' && paramService.mode !== 'client') help();
+if (paramService.mode === 'server' && !paramService.interface) help();
 
 const client = () => {
-  const midiClient = rMidiClient({ host: params.host, port: params.port });
+  const midiClient = rMidiClient({ host: paramService.host, port: paramService.port });
   midiClient.start();
-  const key = new Keyboard({ config, midiSender: midiClient.send.bind(midiClient) });
+  const key = new KeyboardService({ config, midiSender: midiClient.send.bind(midiClient) });
   key.start();
 };
 
 const server = () => {
   const midiServer = rMidiServer({
-    host: params.host, port: params.port, midiDeviceName: params.interface,
+    host: paramService.host, port: paramService.port, midiDeviceName: paramService.interface,
   });
   midiServer.start();
 };
 
-switch (params.mode) {
+switch (paramService.mode) {
   case 'server':
     server();
     break;

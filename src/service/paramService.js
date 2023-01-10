@@ -21,7 +21,7 @@ const help = () => {
   process.exit(0);
 };
 
-class Params {
+class ParamService {
   constructor() {
     this.args = arg({
       '--interface': String,
@@ -53,8 +53,8 @@ class Params {
   get help() { return this.args['--help']; }
 }
 
-const params = new Params();
+const paramService = new ParamService();
 
-export default params;
-export { params };
+export default paramService;
+export { paramService };
 export { help };
