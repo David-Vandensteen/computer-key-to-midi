@@ -1,3 +1,8 @@
+/* "free" cc
+3, 9, 14, 15, 20-31, 35, 41, 46, 47, 52-63, 85-90, 102-119
+korg tr use : 20, 21
+*/
+
 /* eslint-disable no-param-reassign */
 const { log } = console;
 
@@ -23,202 +28,202 @@ export default {
     {
       name: '&',
       increment: 1,
-      cc: 0,
+      cc: 3,
     },
     {
       name: 'a',
       increment: -1,
-      cc: 0,
+      cc: 3,
     },
     {
       name: 'é',
       increment: 1,
-      cc: 1,
+      cc: 9,
     },
     {
       name: 'z',
       increment: -1,
-      cc: 1,
+      cc: 9,
     },
     {
       name: '"',
       increment: 1,
-      cc: 2,
+      cc: 14,
     },
     {
       name: 'e',
       increment: -1,
-      cc: 2,
+      cc: 14,
     },
     {
       name: '\'',
       increment: 1,
-      cc: 3,
+      cc: 15,
     },
     {
       name: 'r',
       increment: -1,
-      cc: 3,
+      cc: 15,
     },
     {
       name: '(',
       increment: 1,
-      cc: 4,
+      cc: 22,
     },
     {
       name: 't',
       increment: -1,
-      cc: 4,
+      cc: 22,
     },
     {
       name: '-',
       increment: 1,
-      cc: 5,
+      cc: 23,
     },
     {
       name: 'y',
       increment: -1,
-      cc: 5,
+      cc: 23,
     },
     {
       name: 'è',
       increment: 1,
-      cc: 6,
+      cc: 24,
     },
     {
       name: 'u',
       increment: -1,
-      cc: 6,
+      cc: 24,
     },
     {
       name: '_',
       increment: 1,
-      cc: 7,
+      cc: 25,
     },
     {
       name: 'i',
       increment: -1,
-      cc: 7,
+      cc: 25,
     },
     {
       name: 'ç',
       increment: 1,
-      cc: 8,
+      cc: 26,
     },
     {
       name: 'o',
       increment: -1,
-      cc: 8,
+      cc: 26,
     },
     {
       name: 'à',
       increment: 1,
-      cc: 9,
+      cc: 27,
     },
     {
       name: 'p',
       increment: -1,
-      cc: 9,
+      cc: 27,
     },
     {
       name: 'q',
       increment: 1,
-      cc: 10,
+      cc: 28,
     },
     {
       name: 'w',
       increment: -1,
-      cc: 10,
+      cc: 28,
     },
     {
       name: 's',
       increment: 1,
-      cc: 11,
+      cc: 29,
     },
     {
       name: 'x',
       increment: -1,
-      cc: 11,
+      cc: 29,
     },
     {
       name: 'd',
       increment: 1,
-      cc: 12,
+      cc: 30,
     },
     {
       name: 'c',
       increment: -1,
-      cc: 12,
+      cc: 31,
     },
     {
       name: 'f',
       increment: 1,
-      cc: 13,
+      cc: 35,
     },
     {
       name: 'v',
       increment: -1,
-      cc: 13,
+      cc: 35,
     },
     {
       name: 'g',
       increment: 1,
-      cc: 14,
+      cc: 41,
     },
     {
       name: 'b',
       increment: -1,
-      cc: 14,
+      cc: 41,
     },
     {
       name: 'h',
       increment: 1,
-      cc: 15,
+      cc: 46,
     },
     {
       name: 'n',
       increment: -1,
-      cc: 15,
+      cc: 46,
     },
     {
       name: 'j',
       increment: 1,
-      cc: 16,
+      cc: 47,
     },
     {
       name: ',',
       increment: -1,
-      cc: 16,
+      cc: 47,
     },
     {
       name: 'k',
       increment: 1,
-      cc: 17,
+      cc: 52,
     },
     {
       name: ';',
       increment: -1,
-      cc: 17,
+      cc: 52,
     },
     {
       name: 'l',
       increment: 1,
-      cc: 18,
+      cc: 53,
     },
     {
       name: ':',
       increment: -1,
-      cc: 18,
+      cc: 53,
     },
     {
       name: 'm',
       increment: 1,
-      cc: 19,
+      cc: 54,
     },
     {
       name: '!',
       increment: -1,
-      cc: 19,
+      cc: 54,
     },
   ],
   /* you can overide default cc values here */
