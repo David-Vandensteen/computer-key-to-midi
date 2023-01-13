@@ -5,8 +5,8 @@ import {
   getOutputs,
 } from 'remote-midi';
 
-import { KeyboardService } from '#src/service/keyboardService';
-import config from '#src/config/default-fr';
+import { KeyboardService } from '#src/model/mcc-1/service/keyboardService';
+import config from '#src/model/mcc-1/config/default-fr';
 
 import { paramService, help } from '#src/service/paramService';
 
