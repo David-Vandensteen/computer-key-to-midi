@@ -16,10 +16,15 @@ export default {
       onUpdate: ({ key, cc }) => { log('onUpdate : cc ', key.cc, ' is updated with the value ', cc.value); },
     },
     key: {
-      onPress: ({ midiSender, key, cc }) => {
+      onPress: ({
+        midiSender,
+        key,
+        cc,
+        channel,
+      }) => {
         const { increment } = key;
         cc.value += increment;
-        midiSender('cc', { controller: key.cc, value: cc.value });
+        midiSender('cc', { controller: key.cc, value: cc.value, channel });
         log('onPress : ', key.name, ' is pressed');
       },
     },
@@ -29,6 +34,7 @@ export default {
       name: '&',
       increment: 1,
       cc: 3,
+      channel: 10,
     },
     {
       name: 'a',

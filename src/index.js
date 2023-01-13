@@ -18,17 +18,17 @@ if (paramService.list) {
 }
 
 if (!paramService.mode || !paramService.host || !paramService.port) help();
-if (paramService.mode !== 'server' && paramService.mode !== 'client') help();
-if (paramService.mode === 'server' && !paramService.interface) help();
+if (paramService.mode !== 'master' && paramService.mode !== 'slave') help();
+if (paramService.mode === 'master' && !paramService.interface) help();
 
-const client = () => {
+const slave = () => {
   const midiClient = rMidiClient({ host: paramService.host, port: paramService.port });
   midiClient.start();
   const key = new KeyboardService({ config, midiSender: midiClient.send.bind(midiClient) });
   key.start();
 };
 
-const server = () => {
+const master = () => {
   const midiServer = rMidiServer({
     host: paramService.host, port: paramService.port, midiDeviceName: paramService.interface,
   });
@@ -36,12 +36,12 @@ const server = () => {
 };
 
 switch (paramService.mode) {
-  case 'server':
-    server();
+  case 'master':
+    master();
     break;
 
-  case 'client':
+  case 'slave':
   default:
-    client();
+    slave();
     break;
 }

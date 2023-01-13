@@ -9,7 +9,7 @@ const help = () => {
   log('');
   log('     Required options:');
   log('');
-  log('   -m    --mode                -- [server\\client]');
+  log('   -m    --mode                -- [master\\slave]');
   log('   -i    --interface           -- midi interface name (needed on server mode)');
   log('   -h    --host                -- host');
   log('   -p    --port                -- port');

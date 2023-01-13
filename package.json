@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "client": "node src/index.js -m client -h 127.0.0.1 -p 7070",
-    "server": "node src/index.js -m server -i mcc-in -h 127.0.0.1 -p 7070",
+    "slave": "node src/index.js -m slave -h 127.0.0.1 -p 7070",
+    "master": "node src/index.js -m master -i mcc-in -h 127.0.0.1 -p 7070",
     "lint": "eslint src"
   },
   "repository": {

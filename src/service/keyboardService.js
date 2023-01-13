@@ -21,9 +21,8 @@ class KeyboardService {
       if ((this.#config.ccs[key.cc] || {}).id !== key.cc) {
         let configCC = {};
         if (config.ccs) configCC = config.ccs.find((c) => c.id === key.cc);
-        // this.#config.ccs.push({ ...defaultCC, id: key.cc, ...configCC });
         this.#config.ccs[key.cc] = { ...defaultCC, id: key.cc, ...configCC };
-        console.log(this.#config.ccs);
+        log(this.#config.ccs);
         this.#config.ccs[key.cc].onCreate({
           midiSender: this.midiSendNormalize,
           key,
@@ -71,6 +70,7 @@ class KeyboardService {
             ccs,
             key,
             keys,
+            channel: key.channel,
           };
           key.onPress(message);
           cc.onUpdate(message);
