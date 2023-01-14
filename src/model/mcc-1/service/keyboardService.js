@@ -1,13 +1,15 @@
-import { emitKeypressEvents } from 'readline';
+import { Keyboard } from '#src/lib/keyboard';
+import midiMessageNormalizer from '#src/lib/midiMessageNormalizer';
 
 const { log } = console;
 
-class KeyboardService {
+class KeyboardService extends Keyboard {
   #midiSender;
 
   #config = {};
 
   constructor({ config, midiSender }) {
+    super();
     this.#config = {};
     this.#config.keys = [];
     this.#config.ccs = [];
@@ -34,47 +36,33 @@ class KeyboardService {
   }
 
   midiSendNormalize(type, message) {
-    const { controller, value } = message;
+    const normalizedMessage = midiMessageNormalizer(message);
+    const { controller, value } = normalizedMessage;
     const { max, min } = this.#config.ccs[controller];
-
     if (value >= max) this.#config.ccs[controller].value = max;
     else if (value <= min) this.#config.ccs[controller].value = min;
 
-    if (value <= 0) this.#config.ccs[controller].value = 0;
-    else if (value >= 127) this.#config.ccs[controller].value = 127;
-
-    const normalizedMessage = message;
     normalizedMessage.value = this.#config.ccs[controller].value;
     this.#midiSender(type, normalizedMessage);
   }
 
-  static stop() {
-    process.exit();
-  }
-
   start() {
-    const { stdin } = process;
-    emitKeypressEvents(process.stdin);
-    process.stdin.setRawMode(true);
-
-    stdin.on('keypress', (str, keypressing) => {
-      if (keypressing.ctrl && keypressing.name === 'c') KeyboardService.stop();
-      else {
-        const { ccs, keys } = this.#config;
-        const key = keys.find((k) => k.name === keypressing.sequence);
-        if (key) {
-          const cc = ccs[key.cc];
-          const message = {
-            midiSender: this.midiSendNormalize.bind(this),
-            cc,
-            ccs,
-            key,
-            keys,
-            channel: key.channel,
-          };
-          key.onPress(message);
-          cc.onUpdate(message);
-        }
+    this.listen();
+    this.on('keypress', (keypressing) => {
+      const { ccs, keys } = this.#config;
+      const key = keys.find((k) => k.name === keypressing.sequence);
+      if (key) {
+        const cc = ccs[key.cc];
+        const message = {
+          midiSender: this.midiSendNormalize.bind(this),
+          cc,
+          ccs,
+          key,
+          keys,
+          channel: key.channel,
+        };
+        key.onPress(message);
+        cc.onUpdate(message);
       }
     });
     log('start : end');

@@ -232,14 +232,4 @@ export default {
       cc: 54,
     },
   ],
-  /* you can overide default cc values here */
-  /*
-  ccs: [
-    {
-      id: 2,
-      max: 20,
-      onCreate: () => { console.log('custom create'); },
-    },
-  ],
-  */
 };

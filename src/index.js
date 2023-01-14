@@ -25,6 +25,7 @@ const slave = () => {
   const midiClient = rMidiClient({ host: paramService.host, port: paramService.port });
   midiClient.start();
   const key = new KeyboardService({ config, midiSender: midiClient.send.bind(midiClient) });
+  key.on('keypress', (key) => console.log('PRESSING KEY', key.sequence));
   key.start();
 };
 
