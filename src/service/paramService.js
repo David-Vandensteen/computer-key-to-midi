@@ -5,7 +5,7 @@ const { log } = console;
 const help = () => {
   log('');
   log('');
-  log('CMD', '[options]');
+  log('mcc', '[options]');
   log('');
   log('     Required options:');
   log('');
