@@ -9,7 +9,9 @@
     "slave": "node src/index.js -m slave -h 127.0.0.1 -p 7070 --config src/model/mcc-1/config/default-fr.yaml",
     "master": "node src/index.js -m master -i mcc-in -o mcc-out -h 127.0.0.1 -p 7070",
     "lint": "eslint src",
-    "package": "npx caxa --input . --output dist/mcc.exe -- {{caxa}}/node_modules/.bin/node.exe {{caxa}}/src/index.js"
+    "package": "npm-run-all package:caxa package:conf",
+    "package:conf": "npx ncp src/model/mcc-1/config/default-fr.yaml dist/mcc.yaml",
+    "package:caxa": "npx caxa --input . --output dist/mcc.exe -- {{caxa}}/node_modules/.bin/node.exe {{caxa}}/src/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   "homepage": "https://github.com/David-Vandensteen/computer-key-to-midi#readme",
   "dependencies": {
     "arg": "^5.0.2",
+    "npm-run-all": "^4.1.5",
     "remote-midi": "git@github.com:David-Vandensteen/remote-midi.git#develop",
     "yaml": "^2.2.1"
   },
