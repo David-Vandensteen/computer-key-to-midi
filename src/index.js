@@ -7,7 +7,6 @@ import {
 } from 'remote-midi';
 
 import { KeyboardService } from '#src/model/mcc-1/service/keyboardService';
-// import config from '#src/model/mcc-1/config/default-fr';
 import config from '#src/lib/config';
 
 import { paramService, help } from '#src/service/paramService';
@@ -27,7 +26,9 @@ if (paramService.mode !== 'master' && paramService.mode !== 'slave') help();
 if (paramService.mode === 'master' && !paramService.interfaceOut) help();
 
 const slave = () => {
-  const midiClient = rMidiClient({ host: paramService.host, port: paramService.port });
+  const midiClient = rMidiClient({
+    host: paramService.host, port: paramService.port,
+  });
   midiClient.on('data', (dataBuffer) => {
     decode(dataBuffer).map((message) => {
       if (message.controller) midiCCState.set(message);
@@ -35,8 +36,10 @@ const slave = () => {
     });
   });
   midiClient.start();
+  let configFile = 'src/model/mcc-1/config/default-fr.yaml';
+  if (paramService.config) configFile = paramService.config;
   const key = new KeyboardService({
-    config: config(), midiSender: midiClient.send.bind(midiClient),
+    config: config(configFile), midiSender: midiClient.send.bind(midiClient),
   });
   key.start();
 };

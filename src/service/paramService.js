@@ -13,6 +13,7 @@ const help = () => {
   log('   -o    --interface-out        -- midi out interface name (needed on server mode)');
   log('   -h    --host                -- host');
   log('   -p    --port                -- port');
+  log('   -c    --config              -- config yaml file with midi mapping definition');
   log('');
   log('     Extra options:');
   log('');
@@ -30,6 +31,7 @@ class ParamService {
       '--mode': String,
       '--host': String,
       '--port': Number,
+      '--config': String,
       '--list': Boolean,
       '--help': Boolean,
 
@@ -39,6 +41,7 @@ class ParamService {
       '-l': '--list',
       '-h': '--host',
       '-p': '--port',
+      '-c': '--config',
       '-m': '--mode',
     });
   }
@@ -52,6 +55,8 @@ class ParamService {
   get interfaceIn() { return this.args['--interface-in']; }
 
   get interfaceOut() { return this.args['--interface-out']; }
+
+  get config() { return this.args['--config']; }
 
   get list() { return this.args['--list']; }
 
