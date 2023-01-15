@@ -1,11 +1,17 @@
 import arg from 'arg';
+import {
+  name,
+  author,
+  version,
+  license,
+} from '#src/lib/package';
 
 const { log } = console;
 
 const help = () => {
   log('');
   log('');
-  log('mcc', '[options]');
+  log(name, '[options]');
   log('');
   log('     Required options:');
   log('');
@@ -26,6 +32,8 @@ const help = () => {
   log('');
   log('slave example :');
   log('mcc -m slave -h 192.168.0.1 -p 7070');
+  log('');
+  log('version', version, author, license);
   process.exit(0);
 };
 
