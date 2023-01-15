@@ -20,6 +20,12 @@ const help = () => {
   log('   -i    --interface-in        -- midi in interface name');
   log('   --list     -l               -- show available midi interfaces');
   log('   --help                      -- show help');
+  log('');
+  log('master example :');
+  log('mcc -m master -i mcc-in -o mcc-out -h 0.0.0.0 -p 7070');
+  log('');
+  log('slave example :');
+  log('mcc -m slave -h 192.168.0.1 -p 7070');
   process.exit(0);
 };
 
