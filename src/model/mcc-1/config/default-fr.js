@@ -3,88 +3,63 @@
 korg tr use : 20, 21
 */
 
-/* eslint-disable no-param-reassign */
-const { log } = console;
-
 export default {
-  default: {
-    cc: {
-      value: 64,
-      max: 127, // 127
-      min: 0, // 0
-      onCreate: ({ key }) => { log('onCreate : key ', key.name, ' is created'); },
-      onUpdate: ({ key, cc }) => { log('onUpdate : cc ', key.cc, ' is updated with the value ', cc.value); },
-    },
-    key: {
-      onPress: ({
-        midiSender,
-        key,
-        cc,
-        channel,
-      }) => {
-        const { increment } = key;
-        cc.value += increment;
-        midiSender('cc', { controller: key.cc, value: cc.value, channel });
-        log('onPress : ', key.name, ' is pressed');
-      },
-    },
-  },
-  keys: [
+  key: [
     {
-      name: '&',
+      sequence: '&',
       increment: 1,
-      cc: 3,
+      controller: 3,
       channel: 10,
     },
     {
-      name: 'a',
+      sequence: 'a',
       increment: -1,
-      cc: 3,
+      controller: 3,
     },
     {
-      name: 'é',
+      sequence: 'é',
       increment: 1,
-      cc: 9,
+      controller: 9,
     },
     {
-      name: 'z',
+      sequence: 'z',
       increment: -1,
-      cc: 9,
+      controller: 9,
     },
     {
-      name: '"',
+      sequence: '"',
       increment: 1,
-      cc: 14,
+      controller: 14,
     },
     {
-      name: 'e',
+      sequence: 'e',
       increment: -1,
-      cc: 14,
+      controller: 14,
     },
     {
-      name: '\'',
+      sequence: '\'',
       increment: 1,
-      cc: 15,
+      controller: 15,
     },
     {
       name: 'r',
       increment: -1,
-      cc: 15,
+      controller: 15,
     },
     {
-      name: '(',
+      sequence: '(',
       increment: 1,
       cc: 22,
     },
     {
       name: 't',
       increment: -1,
-      cc: 22,
+      controller: 22,
     },
     {
-      name: '-',
+      sequence: '-',
       increment: 1,
-      cc: 23,
+      controller: 23,
     },
     {
       name: 'y',
@@ -92,144 +67,144 @@ export default {
       cc: 23,
     },
     {
-      name: 'è',
+      sequence: 'è',
       increment: 1,
-      cc: 24,
+      controller: 24,
     },
     {
-      name: 'u',
+      sequence: 'u',
       increment: -1,
       cc: 24,
     },
     {
-      name: '_',
+      sequence: '_',
       increment: 1,
-      cc: 25,
+      controller: 25,
     },
     {
-      name: 'i',
+      sequence: 'i',
       increment: -1,
       cc: 25,
     },
     {
-      name: 'ç',
+      sequence: 'ç',
       increment: 1,
-      cc: 26,
+      controller: 26,
     },
     {
-      name: 'o',
+      sequence: 'o',
       increment: -1,
-      cc: 26,
+      controller: 26,
     },
     {
-      name: 'à',
+      sequence: 'à',
       increment: 1,
-      cc: 27,
+      controller: 27,
     },
     {
-      name: 'p',
+      sequence: 'p',
       increment: -1,
-      cc: 27,
+      controller: 27,
     },
     {
-      name: 'q',
+      sequence: 'q',
       increment: 1,
+      controller: 28,
+    },
+    {
+      sequence: 'w',
+      increment: -1,
       cc: 28,
     },
     {
-      name: 'w',
-      increment: -1,
-      cc: 28,
-    },
-    {
-      name: 's',
+      sequence: 's',
       increment: 1,
-      cc: 29,
+      controller: 29,
     },
     {
-      name: 'x',
+      sequence: 'x',
       increment: -1,
-      cc: 29,
+      controller: 29,
     },
     {
-      name: 'd',
+      sequence: 'd',
       increment: 1,
-      cc: 30,
+      controller: 30,
     },
     {
-      name: 'c',
+      sequence: 'c',
       increment: -1,
-      cc: 31,
+      controller: 31,
     },
     {
-      name: 'f',
+      sequence: 'f',
       increment: 1,
       cc: 35,
     },
     {
-      name: 'v',
+      sequence: 'v',
       increment: -1,
-      cc: 35,
+      controller: 35,
     },
     {
-      name: 'g',
+      sequence: 'g',
       increment: 1,
       cc: 41,
     },
     {
-      name: 'b',
+      sequence: 'b',
       increment: -1,
-      cc: 41,
+      controller: 41,
     },
     {
-      name: 'h',
+      sequence: 'h',
       increment: 1,
       cc: 46,
     },
     {
-      name: 'n',
+      sequence: 'n',
       increment: -1,
-      cc: 46,
+      controller: 46,
     },
     {
-      name: 'j',
+      sequence: 'j',
       increment: 1,
-      cc: 47,
+      controller: 47,
     },
     {
-      name: ',',
+      sequence: ',',
       increment: -1,
-      cc: 47,
+      controller: 47,
     },
     {
-      name: 'k',
+      sequence: 'k',
       increment: 1,
-      cc: 52,
+      controller: 52,
     },
     {
-      name: ';',
+      sequence: ';',
       increment: -1,
-      cc: 52,
+      controller: 52,
     },
     {
-      name: 'l',
+      sequence: 'l',
       increment: 1,
-      cc: 53,
+      controller: 53,
     },
     {
-      name: ':',
+      sequence: ':',
       increment: -1,
-      cc: 53,
+      controller: 53,
     },
     {
-      name: 'm',
+      sequence: 'm',
       increment: 1,
-      cc: 54,
+      controller: 54,
     },
     {
-      name: '!',
+      sequence: '!',
       increment: -1,
-      cc: 54,
+      controller: 54,
     },
   ],
 };

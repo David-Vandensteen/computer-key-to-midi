@@ -1,4 +1,4 @@
-export default (message) => {
+const normalizeMidiMessage = (message) => {
   const normalizedMessage = message;
   if (message?.velocity >= 127) normalizedMessage.velocity = 127;
   if (message?.velocity <= 0) normalizedMessage.velocity = 0;
@@ -17,3 +17,12 @@ export default (message) => {
 
   return normalizedMessage;
 };
+
+const normalizeMidiValue = (value) => {
+  if (value >= 127) return 127;
+  if (value <= 0) return 0;
+  return value;
+};
+
+export default normalizeMidiMessage;
+export { normalizeMidiMessage, normalizeMidiValue };

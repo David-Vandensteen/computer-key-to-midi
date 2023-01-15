@@ -3,12 +3,16 @@ import {
   rMidiServer,
   getInputs,
   getOutputs,
+  decode,
 } from 'remote-midi';
 
 import { KeyboardService } from '#src/model/mcc-1/service/keyboardService';
 import config from '#src/model/mcc-1/config/default-fr';
 
 import { paramService, help } from '#src/service/paramService';
+import { MidiCCState } from '#src/lib/midiCCState';
+
+const midiCCState = MidiCCState.getInstance();
 
 if (paramService.list) {
   const { log } = console;
@@ -19,19 +23,27 @@ if (paramService.list) {
 
 if (!paramService.mode || !paramService.host || !paramService.port) help();
 if (paramService.mode !== 'master' && paramService.mode !== 'slave') help();
-if (paramService.mode === 'master' && !paramService.interface) help();
+if (paramService.mode === 'master' && !paramService.interfaceOut) help();
 
 const slave = () => {
   const midiClient = rMidiClient({ host: paramService.host, port: paramService.port });
+  midiClient.on('data', (dataBuffer) => {
+    decode(dataBuffer).map((message) => {
+      if (message.controller) midiCCState.set(message);
+      return message;
+    });
+  });
   midiClient.start();
   const key = new KeyboardService({ config, midiSender: midiClient.send.bind(midiClient) });
-  key.on('keypress', (key) => console.log('PRESSING KEY', key.sequence));
   key.start();
 };
 
 const master = () => {
   const midiServer = rMidiServer({
-    host: paramService.host, port: paramService.port, midiDeviceName: paramService.interface,
+    host: paramService.host,
+    port: paramService.port,
+    midiOutputDeviceName: paramService.interfaceOut,
+    midiInputDeviceName: paramService.interfaceIn,
   });
   midiServer.start();
 };

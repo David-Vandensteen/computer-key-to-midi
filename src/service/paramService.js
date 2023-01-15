@@ -10,12 +10,13 @@ const help = () => {
   log('     Required options:');
   log('');
   log('   -m    --mode                -- [master\\slave]');
-  log('   -i    --interface           -- midi interface name (needed on server mode)');
+  log('   -o    --interface-out        -- midi out interface name (needed on server mode)');
   log('   -h    --host                -- host');
   log('   -p    --port                -- port');
   log('');
   log('     Extra options:');
   log('');
+  log('   -i    --interface-in        -- midi in interface name');
   log('   --list     -l               -- show available midi interfaces');
   log('   --help                      -- show help');
   process.exit(0);
@@ -24,7 +25,8 @@ const help = () => {
 class ParamService {
   constructor() {
     this.args = arg({
-      '--interface': String,
+      '--interface-in': String,
+      '--interface-out': String,
       '--mode': String,
       '--host': String,
       '--port': Number,
@@ -32,7 +34,8 @@ class ParamService {
       '--help': Boolean,
 
       // Aliases
-      '-i': '--interface',
+      '-i': '--interface-in',
+      '-o': '--interface-out',
       '-l': '--list',
       '-h': '--host',
       '-p': '--port',
@@ -46,7 +49,9 @@ class ParamService {
 
   get port() { return this.args['--port']; }
 
-  get interface() { return this.args['--interface']; }
+  get interfaceIn() { return this.args['--interface-in']; }
+
+  get interfaceOut() { return this.args['--interface-out']; }
 
   get list() { return this.args['--list']; }
 
