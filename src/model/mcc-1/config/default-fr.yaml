@@ -2,159 +2,199 @@ key:
   - sequence: '&'
     increment: 1
     controller: 3
+    channel: 0
 
   - sequence: 'a'
     increment: -1
     controller: 3
+    channel: 0
 
   - sequence: 'é'
     increment: 1
     controller: 9
+    channel: 0
 
   - sequence: 'z'
     increment: -1
     controller: 9
+    channel: 0
 
   - sequence: '"'
     increment: 1
     controller: 14
+    channel: 0
 
   - sequence: 'e'
     increment: -1
     controller: 14
+    channel: 0
 
   - sequence: "'"
     increment: 1
     controller: 15
+    channel: 0
 
   - sequence: 'r'
     increment: -1
     controller: 15
+    channel: 0
 
   - sequence: '('
     increment: 1
     controller: 22
+    channel: 0
 
   - sequence: 't'
     increment: -1
     controller: 22
+    channel: 0
 
   - sequence: '-'
     increment: 1
     controller: 23
+    channel: 0
 
   - sequence: 'y'
     increment: -1
     controller: 23
+    channel: 0
 
   - sequence: 'è'
     increment: 1
     controller: 24
+    channel: 0
 
   - sequence: 'u'
     increment: -1
     controller: 24
+    channel: 0
 
   - sequence: '_'
     increment: 1
     controller: 25
+    channel: 0
 
   - sequence: 'i'
     increment: -1
     controller: 25
+    channel: 0
 
   - sequence: 'ç'
     increment: 1
     controller: 26
+    channel: 0
 
   - sequence: 'o'
     increment: -1
     controller: 26
+    channel: 0
 
   - sequence: 'à'
     increment: 1
     controller: 27
+    channel: 0
 
   - sequence: 'p'
     increment: -1
     controller: 27
+    channel: 0
 
   - sequence: 'q'
     increment: 1
     controller: 28
+    channel: 0
 
   - sequence: 'w'
     increment: -1
     controller: 28
+    channel: 0
 
   - sequence: 's'
     increment: 1
     controller: 29
+    channel: 0
 
   - sequence: 'x'
     increment: -1
     controller: 29
+    channel: 0
 
   - sequence: 'd'
     increment: 1
     controller: 30
+    channel: 0
 
   - sequence: 'c'
     increment: -1
     controller: 31
+    channel: 0
 
   - sequence: 'f'
     increment: 1
     controller: 35
+    channel: 0
 
   - sequence: 'v'
     increment: -1
     controller: 35
+    channel: 0
 
   - sequence: 'g'
     increment: 1
     controller: 41
+    channel: 0
 
   - sequence: 'b'
     increment: -1
     controller: 41
+    channel: 0
 
   - sequence: 'h'
     increment: 1
     controller: 46
+    channel: 0
 
   - sequence: 'n'
     increment: -1
     controller: 46
+    channel: 0
 
   - sequence: 'j'
     increment: 1
     controller: 47
+    channel: 0
 
   - sequence: ','
     increment: -1
     controller: 47
+    channel: 0
 
   - sequence: 'k'
     increment: 1
     controller: 52
+    channel: 0
 
   - sequence: ';'
     increment: -1
     controller: 52
+    channel: 0
 
   - sequence: 'l'
     increment: 1
     controller: 53
+    channel: 0
 
   - sequence: ':'
     increment: -1
     controller: 53
+    channel: 0
 
   - sequence: 'm'
     increment: 1
     controller: 54
+    channel: 0
 
   - sequence: '!'
     increment: -1
     controller: 54
+    channel: 0
