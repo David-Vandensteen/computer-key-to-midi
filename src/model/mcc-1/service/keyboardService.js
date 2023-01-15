@@ -18,10 +18,8 @@ class KeyboardService extends Keyboard {
   }
 
   start() {
-    setTimeout(() => {
-      console.log('GET CC', midiCCState.get());
-    }, 10000);
     this.listen();
+    console.log(this.#config);
     this.on('keypress', (keypressing) => {
       const key = this.#config.key.find((k) => k.sequence === keypressing.sequence);
       if (key) {

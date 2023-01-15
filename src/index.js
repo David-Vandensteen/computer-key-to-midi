@@ -7,7 +7,8 @@ import {
 } from 'remote-midi';
 
 import { KeyboardService } from '#src/model/mcc-1/service/keyboardService';
-import config from '#src/model/mcc-1/config/default-fr';
+// import config from '#src/model/mcc-1/config/default-fr';
+import config from '#src/lib/config';
 
 import { paramService, help } from '#src/service/paramService';
 import { MidiCCState } from '#src/lib/midiCCState';
@@ -34,7 +35,9 @@ const slave = () => {
     });
   });
   midiClient.start();
-  const key = new KeyboardService({ config, midiSender: midiClient.send.bind(midiClient) });
+  const key = new KeyboardService({
+    config: config(), midiSender: midiClient.send.bind(midiClient),
+  });
   key.start();
 };
 
