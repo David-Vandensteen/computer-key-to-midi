@@ -1,8 +1,7 @@
 import { normalizeMidiMessage } from 'remote-midi';
 import { Keyboard } from '#src/lib/keyboard';
 import { MidiCCState } from '#src/lib/midiCCState';
-
-const { log } = console;
+import { log } from '#src/lib/log';
 
 const midiCCState = MidiCCState.getInstance();
 
@@ -19,7 +18,8 @@ class KeyboardService extends Keyboard {
 
   start() {
     this.listen();
-    console.log(this.#config);
+    log.title('midi mapping :');
+    log.debug(this.#config);
     this.on('keypress', (keypressing) => {
       const key = this.#config.key.find((k) => k.sequence === keypressing.sequence);
       if (key) {
@@ -34,7 +34,6 @@ class KeyboardService extends Keyboard {
         this.#midiSender('cc', normalizedMessage);
       }
     });
-    log('start : end');
     return this;
   }
 }

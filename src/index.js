@@ -6,6 +6,8 @@ import {
   decode,
 } from 'remote-midi';
 
+import { log } from '#src/lib/log';
+
 import { KeyboardService } from '#src/model/mcc-1/service/keyboardService';
 import config from '#src/lib/config';
 
@@ -15,9 +17,9 @@ import { MidiCCState } from '#src/lib/midiCCState';
 const midiCCState = MidiCCState.getInstance();
 
 if (paramService.list) {
-  const { log } = console;
-  log('midi inputs :', getInputs().toString());
-  log('midi outputs :', getOutputs().toString());
+  log.title('show midi device :');
+  log.info('midi inputs :', getInputs().toString());
+  log.info('midi outputs :', getOutputs().toString());
   process.exit(0);
 }
 
