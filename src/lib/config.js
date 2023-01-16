@@ -16,37 +16,10 @@ const getConfig = (file) => {
 };
 
 export default (file) => {
-  if (getConfig(file)) return getConfig(file);
-  if (getConfig(resolve('dist/mcc.yaml'))) return getConfig(resolve('dist/mcc.yaml'));
-  if (getConfig(resolve('src/model/mcc-1/config/default-fr.yaml'))) return getConfig(resolve('src/model/mcc-1/config/default-fr.yaml'));
-  return new Error('config was not found');
-  /*
-  let configFile = file;
+  if (existsSync(file)) return getConfig(file);
+  log(file, 'not found... try to find a available config');
 
-  if (!existsSync(configFile) || configFile === undefined) {
-    log('config file not exist or is undefined', configFile);
-  } else {
-    const config = readFileSync(configFile, 'utf8');
-    return YAML.parse(config);
-  }
-
-  configFile = resolve('dist/mcc.yaml');
-
-  if (!existsSync(configFile) || configFile === undefined) {
-    log('config file not exist or is undefined', configFile);
-  } else {
-    const config = readFileSync(configFile, 'utf8');
-    return YAML.parse(config);
-  }
-
-  configFile = resolve('src/model/mcc-1/config/default-fr.yaml');
-
-  if (!existsSync(configFile) || configFile === undefined) {
-    log('config file not exist or is undefined', configFile);
-  } else {
-    const config = readFileSync(configFile, 'utf8');
-    return YAML.parse(config);
-  }
-  return new Error('config not found');
-  */
+  if (existsSync(resolve('dist/mcc.yaml'))) return getConfig(resolve('dist/mcc.yaml'));
+  if (existsSync(resolve('src/model/mcc-1/config/default-fr.yaml'))) return getConfig(resolve('src/model/mcc-1/config/default-fr.yaml'));
+  throw new Error('config was not found');
 };
