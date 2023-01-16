@@ -1,6 +1,6 @@
 import appRootPath from 'app-root-path';
 import { readFileSync, existsSync } from 'fs';
-import YAML from 'yaml';
+import { parse } from 'yaml';
 
 const { log } = console;
 const { resolve } = appRootPath;
@@ -9,7 +9,7 @@ const getConfig = (file) => {
   if (existsSync(file)) {
     const config = readFileSync(file, 'utf8');
     log('config file found :', file);
-    return YAML.parse(config);
+    return parse(config);
   }
   log(file, 'not found');
   return false;
