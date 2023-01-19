@@ -1,0 +1,45 @@
+{
+  "name": "mcc",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "slave:default-config": "node src/index.js -m slave -h 127.0.0.1 -p 7070",
+    "slave": "node src/index.js -m slave -h 127.0.0.1 -p 7070 --config src/model/mcc-1/config/default-fr.yaml",
+    "master": "node src/index.js -m master -i mcc-in -o mcc-out -h 127.0.0.1 -p 7070",
+    "lint": "eslint src",
+    "package": "npm-run-all package:caxa package:conf",
+    "package:conf": "npx ncp src/model/mcc-1/config/default-fr.yaml dist/mcc.yaml",
+    "package:caxa": "npx caxa --input . --output dist/mcc.exe -- {{caxa}}/node_modules/.bin/node.exe {{caxa}}/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/David-Vandensteen/computer-key-to-midi.git"
+  },
+  "author": "David Vandensteen <dvandensteen@gmail.com>",
+  "license": "MIT",
+  "imports": {
+    "#src/*": "./src/*.js"
+  },
+  "bugs": {
+    "url": "https://github.com/David-Vandensteen/computer-key-to-midi/issues"
+  },
+  "homepage": "https://github.com/David-Vandensteen/computer-key-to-midi#readme",
+  "dependencies": {
+    "app-root-path": "^3.1.0",
+    "arg": "^5.0.2",
+    "chalk": "^5.2.0",
+    "fs-extra": "^11.1.0",
+    "remote-midi": "git@github.com:David-Vandensteen/remote-midi.git#develop",
+    "yaml": "^2.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.26.0",
+    "npm-run-all": "^4.1.5"
+  }
+}
