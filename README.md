@@ -42,7 +42,7 @@ npm run start -- --list
 
 ### Configuration
 The software can be configured through a YAML file.  
-The default configuration file is located in src/model/mcc-1/config/default-fr.yaml but you can specify your own with the --config option.  
+The default configuration file is located in `src/model/mcc-1/config/default-fr.yaml` but you can specify your own with the `--config` option.  
 
 ## License
 This project is licensed under the MIT License.
