@@ -102,7 +102,7 @@ import { log } from '#src/lib/log';
 import { KeyboardService } from '#src/model/mcc-1/service/keyboardService';
 import getConfig from '#src/lib/config';
 
-import { paramService, help } from '#src/service/paramService';
+import { paramService, showHelp } from '#src/service/paramService';
 import { MidiCCState } from '#src/lib/midiCCState';
 
 const midiCCState = MidiCCState.getInstance();
@@ -122,9 +122,9 @@ const checkArgumentsAndHelp = () => {
     process.exit(0);
   }
 
-  if (!paramService.mode || !paramService.host || !paramService.port) help();
-  if (paramService.mode !== 'master' && paramService.mode !== 'slave') help();
-  if (paramService.mode === 'master' && !paramService.interfaceOut) help();
+  if (!paramService.mode || !paramService.host || !paramService.port) showHelp();
+  if (paramService.mode !== 'master' && paramService.mode !== 'slave') showHelp();
+  if (paramService.mode === 'master' && !paramService.interfaceOut) showHelp();
 };
 
 checkArgumentsAndHelp();

@@ -8,7 +8,7 @@ import {
 
 const { log } = console;
 
-const help = () => {
+const showHelp = () => {
   log('');
   log('');
   log(name, '[options]');
@@ -80,5 +80,4 @@ class ParamService {
 const paramService = new ParamService();
 
 export default paramService;
-export { paramService };
-export { help };
+export { paramService, showHelp };
