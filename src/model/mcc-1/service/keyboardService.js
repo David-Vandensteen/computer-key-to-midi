@@ -17,7 +17,7 @@ class KeyboardService extends Keyboard {
   }
 
   start() {
-    this.listen();
+    super.start();
     log.title('midi mapping :');
     log.debug(this.#config);
     this.on('keypress', (keypressing) => {
