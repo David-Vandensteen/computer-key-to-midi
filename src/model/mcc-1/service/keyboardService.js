@@ -21,7 +21,7 @@ class KeyboardService extends Keyboard {
     log.title('midi mapping :');
     log.debug(this.#config);
     this.on('keypress', (keypressing) => {
-      log.info('key sequence', keypressing.sequence, 'key name', keypressing.name, 'is press');
+      log.debug(keypressing);
       const key = this.#config.key.find((k) => k.sequence === keypressing.sequence);
       if (key) {
         const { controller, channel, increment } = key;

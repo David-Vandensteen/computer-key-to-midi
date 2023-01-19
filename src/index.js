@@ -9,7 +9,7 @@ import {
 import { log } from '#src/lib/log';
 
 import { KeyboardService } from '#src/model/mcc-1/service/keyboardService';
-import config from '#src/lib/config';
+import getConfig from '#src/lib/config';
 
 import { paramService, help } from '#src/service/paramService';
 import { MidiCCState } from '#src/lib/midiCCState';
@@ -38,10 +38,10 @@ const slave = () => {
     });
   });
   midiClient.start();
-  let configFile = 'src/model/mcc-1/config/default-fr.yaml';
-  if (paramService.config) configFile = paramService.config;
+  const config = getConfig(['src/model/mcc-1/config/default-fr.yaml', 'dist/mcc.yaml']);
+  if (config === undefined) throw new Error('config error');
   const key = new KeyboardService({
-    config: config(configFile), midiSender: midiClient.send.bind(midiClient),
+    config, midiSender: midiClient.send.bind(midiClient),
   });
   key.start();
 };
