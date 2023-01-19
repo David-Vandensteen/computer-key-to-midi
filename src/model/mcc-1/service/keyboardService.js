@@ -22,7 +22,7 @@ class KeyboardService extends Keyboard {
     log.debug(this.#config);
     this.on('keypress', (keypressing) => {
       log.debug(keypressing);
-      const key = this.#config.key.find((k) => k.sequence === keypressing.sequence);
+      const key = this.#config.key.find(({ sequence }) => sequence === keypressing.sequence);
       if (key) {
         const { controller, channel, increment } = key;
         const value = midiCCState.getValue({ channel, controller }) + increment;
