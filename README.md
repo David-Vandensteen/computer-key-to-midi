@@ -1,3 +1,7 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Windows](https://img.shields.io/badge/platform-windows-lightgrey)
+[![Node.js](https://img.shields.io/badge/Node.js-18.x-green.svg)](https://nodejs.org/en/download/)
+
 # computer-key-to-midi
 This project is a software that converts computer key inputs into MIDI inputs.  
 The software runs on node.js.
@@ -5,8 +9,6 @@ The software runs on node.js.
 ## Installation
 To use this project, you will need to have Node.js and npm installed on your machine.  
 Once you have those installed, you can clone the repository and install the dependencies by running:
-
-Copy code
 ```
 git clone https://github.com/David-Vandensteen/computer-key-to-midi.git
 cd computer-key-to-midi
