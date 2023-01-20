@@ -1,4 +1,4 @@
-import { normalizeMidiMessage } from 'remote-midi';
+import { MidiNormalizer } from 'remote-midi';
 import { Keyboard } from '#src/lib/keyboard';
 import { MidiCCState } from '#src/lib/midiCCState';
 import { log } from '#src/lib/log';
@@ -26,7 +26,7 @@ class KeyboardService extends Keyboard {
       if (key) {
         const { controller, channel, increment } = key;
         const value = midiCCState.getValue({ channel, controller }) + increment;
-        const normalizedMessage = normalizeMidiMessage({
+        const normalizedMessage = MidiNormalizer.message({
           channel,
           value,
           controller,

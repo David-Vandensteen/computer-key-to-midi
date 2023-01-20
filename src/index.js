@@ -94,7 +94,7 @@ import {
   rMidiServer,
   getInputs,
   getOutputs,
-  decode,
+  TCPMessage,
 } from 'remote-midi';
 
 import { log } from '#src/lib/log';
@@ -108,7 +108,7 @@ import { MidiCCState } from '#src/lib/midiCCState';
 const midiCCState = MidiCCState.getInstance();
 
 const handleMidiData = (dataBuffer) => {
-  decode(dataBuffer).map((message) => {
+  TCPMessage.decode(dataBuffer).map((message) => {
     if (message.controller) midiCCState.set(message);
     return message;
   });
