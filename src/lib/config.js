@@ -18,7 +18,9 @@ const getConfig = (file) => {
 export default (configPaths) => {
   log.title('Loading config file...');
 
-  const foundPath = configPaths.find((path) => {
+  const processedConfigPaths = Array.isArray(configPaths) ? configPaths : [configPaths];
+
+  const foundPath = processedConfigPaths.find((path) => {
     if (existsSync(path)) return true;
     if (existsSync(resolve(path))) return true;
     return false;
