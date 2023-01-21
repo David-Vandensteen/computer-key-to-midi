@@ -5,7 +5,7 @@ import appRootPath from 'app-root-path';
 
 const { resolve } = appRootPath;
 
-const getConfig = (file) => {
+const getFromFile = (file) => {
   if (existsSync(file)) {
     const config = parse(readFileSync(file, 'utf8'));
     log.info('config file found :', file);
@@ -15,18 +15,22 @@ const getConfig = (file) => {
   return undefined;
 };
 
-export default (configPaths) => {
-  log.title('Loading config file...');
+export default class Config {
+  static get(configPaths) {
+    log.title('Loading config file...');
 
-  const processedConfigPaths = Array.isArray(configPaths) ? configPaths : [configPaths];
+    const processedConfigPaths = Array.isArray(configPaths) ? configPaths : [configPaths];
 
-  const foundPath = processedConfigPaths.find((path) => {
-    if (existsSync(path)) return true;
-    if (existsSync(resolve(path))) return true;
-    return false;
-  });
+    const foundPath = processedConfigPaths.find((path) => {
+      if (existsSync(path)) return true;
+      if (existsSync(resolve(path))) return true;
+      return false;
+    });
 
-  if (foundPath) return getConfig(foundPath);
+    if (foundPath) return getFromFile(foundPath);
 
-  throw new Error('No config file found');
-};
+    throw new Error('No config file found');
+  }
+}
+
+export { Config };

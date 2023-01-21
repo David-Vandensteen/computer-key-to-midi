@@ -19,7 +19,7 @@ const showHelp = () => {
   log('   -o    --interface-out        -- midi out interface name (needed on server mode)');
   log('   -h    --host                -- host');
   log('   -p    --port                -- port');
-  log('   -c    --config              -- config yaml file with midi mapping definition');
+  log('   -c    --config              -- config yaml file with midi key mapping');
   log('');
   log('     Extra options:');
   log('');
@@ -97,10 +97,11 @@ argService.masterConfig = {
   midiOutputDeviceName: argService.interfaceOut,
   midiInputDeviceName: argService.interfaceIn,
 };
-// TODO : key config
+
 argService.slaveConfig = {
   host: argService.host,
   port: argService.port,
+  keyMappingConfigFile: argService.config,
 };
 
 export default argService;

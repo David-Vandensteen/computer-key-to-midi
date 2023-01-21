@@ -1,31 +1,33 @@
 import { MasterRunnerService } from '#src/service/masterRunnerService';
 import { SlaveRunnerService } from '#src/service/slaveRunnerService';
-import getConfig from '#src/lib/config'; // TODO : rename getKeyConfig ?
-// TODO : handle arg configKeyFile
+import { Config } from '#src/lib/config';
 
 export default class ApplicationService {
-  static run(argService) {
-    argService.checkArgumentsAndHelp();
-    if (argService.mode === 'master') ApplicationService.runMaster(argService.masterConfig);
-    if (argService.mode === 'slave') ApplicationService.runSlave(argService.slaveConfig);
-  }
+  static run(config) {
+    if (!config?.mode ?? !config) throw new Error('invalid configuration');
+    const { host, port } = config;
 
-  static runSlave({ host, port }) {
-    const keyConfig = getConfig(['src/model/mcc-1/config/default-fr.yaml', 'dist/mcc.yaml']);
-    const slave = new SlaveRunnerService({ host, port, keyConfig });
-    slave.start();
-  }
+    if (config.mode === 'master') {
+      const { midiOutputDeviceName, midiInputDeviceName } = config;
+      const master = new MasterRunnerService({
+        host,
+        port,
+        midiInputDeviceName,
+        midiOutputDeviceName,
+      });
+      master.start();
+    }
 
-  static runMaster({
-    host, port, midiOutputDeviceName, midiInputDeviceName,
-  }) {
-    const master = new MasterRunnerService({
-      host,
-      port,
-      midiOutputDeviceName,
-      midiInputDeviceName,
-    });
-    master.start();
+    if (config.mode === 'slave') {
+      const { keyMappingConfigFile } = config;
+      const keyMappingConfig = Config.get(keyMappingConfigFile);
+      const slave = new SlaveRunnerService({
+        host,
+        port,
+        keyMappingConfig,
+      });
+      slave.start();
+    }
   }
 }
 

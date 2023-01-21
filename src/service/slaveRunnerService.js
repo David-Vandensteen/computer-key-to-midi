@@ -12,12 +12,12 @@ const handleMidiData = (dataBuffer) => {
   });
 };
 
-const clientStart = (TCPConfig, keyConfig) => {
+const clientStart = (TCPConfig, keyMappingConfig) => {
   const midiClient = rMidiClient(TCPConfig);
   midiClient.on('data', handleMidiData);
   midiClient.start();
   const key = new KeyboardService({
-    config: keyConfig,
+    config: keyMappingConfig,
     midiSender: midiClient.send.bind(midiClient),
   });
   key.start();
@@ -26,16 +26,16 @@ const clientStart = (TCPConfig, keyConfig) => {
 export default class SlaveRunnerService {
   #TCPConfig;
 
-  #keyConfig;
+  #keyMappingConfig;
 
-  constructor({ host, port, keyConfig }) {
+  constructor({ host, port, keyMappingConfig }) {
     this.#TCPConfig = { host, port };
-    this.#keyConfig = keyConfig;
+    this.#keyMappingConfig = keyMappingConfig;
   }
 
   start() {
     try {
-      clientStart(this.#TCPConfig, this.#keyConfig);
+      clientStart(this.#TCPConfig, this.#keyMappingConfig);
     } catch (error) {
       log(error);
       process.exit(1);
