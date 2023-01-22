@@ -16,17 +16,19 @@ const getFromFile = (file) => {
 };
 
 export default class Config {
+  static getAvailableFile(configPaths) {
+    const processedConfigPaths = Array.isArray(configPaths) ? configPaths : [configPaths];
+    processedConfigPaths.map((configPath) => {
+      processedConfigPaths.push(resolve(configPath));
+      return configPath;
+    });
+    const foundPath = processedConfigPaths.find((path) => existsSync(path) === true);
+    return foundPath;
+  }
+
   static get(configPaths) {
     log.title('Loading config file...');
-
-    const processedConfigPaths = Array.isArray(configPaths) ? configPaths : [configPaths];
-
-    const foundPath = processedConfigPaths.find((path) => {
-      if (existsSync(path)) return true;
-      if (existsSync(resolve(path))) return true;
-      return false;
-    });
-
+    const foundPath = Config.getAvailableFile(configPaths);
     if (foundPath) return getFromFile(foundPath);
 
     throw new Error('No config file found');
