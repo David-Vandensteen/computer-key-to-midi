@@ -32,7 +32,7 @@ You can use the command
 ```
 npm run slave -- -h <host> -p <port>
 ```
-You can also specify a configuration file with --config <config_file>
+You can also specify a configuration file with `--config <config_file>`
 
 ### List MIDI devices
 You can list all available MIDI inputs and outputs with the command 

@@ -1,12 +1,12 @@
 import arg from 'arg';
+import { getInputs, getOutputs } from 'remote-midi';
+import { log } from '#src/lib/log';
 import {
   name,
   author,
   version,
   license,
 } from '#src/lib/package';
-
-const { log } = console;
 
 const showHelp = () => {
   log('');
@@ -19,7 +19,7 @@ const showHelp = () => {
   log('   -o    --interface-out        -- midi out interface name (needed on server mode)');
   log('   -h    --host                -- host');
   log('   -p    --port                -- port');
-  log('   -c    --config              -- config yaml file with midi mapping definition');
+  log('   -c    --config              -- config yaml file with midi key mapping');
   log('');
   log('     Extra options:');
   log('');
@@ -37,7 +37,7 @@ const showHelp = () => {
   process.exit(0);
 };
 
-class ParamService {
+class ArgService {
   constructor() {
     this.args = arg({
       '--interface-in': String,
@@ -75,9 +75,34 @@ class ParamService {
   get list() { return this.args['--list']; }
 
   get help() { return this.args['--help']; }
+
+  checkArgumentsAndHelp() {
+    if (this.list) {
+      log.title('show midi device :');
+      log.info('midi inputs :', getInputs().toString());
+      log.info('midi outputs :', getOutputs().toString());
+      process.exit(0);
+    }
+    if (!this.mode || !this.host || !this.port) showHelp();
+    if (this.mode !== 'master' && this.mode !== 'slave') showHelp();
+    if (this.mode === 'master' && !this.interfaceOut) showHelp();
+  }
 }
 
-const paramService = new ParamService();
+const argService = new ArgService();
 
-export default paramService;
-export { paramService, showHelp };
+argService.masterConfig = {
+  host: argService.host,
+  port: argService.port,
+  midiOutputDeviceName: argService.interfaceOut,
+  midiInputDeviceName: argService.interfaceIn,
+};
+
+argService.slaveConfig = {
+  host: argService.host,
+  port: argService.port,
+  keyMappingConfigFile: argService.config,
+};
+
+export default argService;
+export { argService };
