@@ -6,8 +6,8 @@
 # The primary MIDI channel that the controller uses in
 # the range of 0-15.
 GlobalChannel: 0
-InputName: mcc
-OutputName: mcc
+InputName: mcc-out
+OutputName: mcc-in
 # ======================================================
 # Control Settings Information
 # ======================================================
@@ -185,17 +185,17 @@ VolumeSlider5: 35
 VolumeSlider6: 41
 VolumeSlider7: 46
 VolumeSlider8: 47
-Slider1Channel: -1
-Slider2Channel: -1
-Slider3Channel: -1
-Slider4Channel: -1
-Slider5Channel: -1
-Slider6Channel: -1
-Slider7Channel: -1
-Slider8Channel: -1
+Slider1Channel: 0
+Slider2Channel: 0
+Slider3Channel: 0
+Slider4Channel: 0
+Slider5Channel: 0
+Slider6Channel: 0
+Slider7Channel: 0
+Slider8Channel: 0
 
 # Send1Knob1-Send1Knob8 control Track Send A.
-Send1Knob1: 3
+Send1Knob1: -1
 Send1Knob2: -1
 Send1Knob3: -1
 Send1Knob4: -1
@@ -205,7 +205,7 @@ Send1Knob7: -1
 Send1Knob8: -1
 
 # Send2Knob1-Send2Knob8 control Track Send B.
-Send2Knob1: 9
+Send2Knob1: -1
 Send2Knob2: -1
 Send2Knob3: -1
 Send2Knob4: -1
@@ -298,10 +298,10 @@ MixerButtonsToggle: False
 # transport-related features.
 
 # StopButton stops playback.
-StopButton: -1
+StopButton: 3
 
 # PlayButton starts playback.
-PlayButton: -1
+PlayButton: 9
 
 # RecButton toggles Arrangement Record.
 RecButton: -1
