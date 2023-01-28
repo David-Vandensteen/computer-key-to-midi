@@ -10,6 +10,19 @@ const getConfiguredKey = (config, keypressSequence) => {
   return configuredKey;
 };
 
+const getNormalizedSequence = (keypressEvent) => {
+  // TODO : move to keyboard parent
+  // arrow
+  if (keypressEvent.name === 'right' && keypressEvent.code === '[C') return '\\x1B[C';
+  if (keypressEvent.name === 'left' && keypressEvent.code === '[D') return '\\x1B[D';
+  if (keypressEvent.name === 'up' && keypressEvent.code === '[A') return '\\x1B[A';
+  if (keypressEvent.name === 'down' && keypressEvent.code === '[B') return '\\x1B[B';
+  return keypressEvent.sequence;
+  // TODO : page up, page down, home, end, enter
+  // TODO : F1, F2, ...
+  // TODO : tab
+};
+
 class KeyboardService extends Keyboard {
   #midiSender;
 
@@ -47,13 +60,12 @@ class KeyboardService extends Keyboard {
   }
 
   static #getMidiValue({
-    type, channel, controller, increment, controllerCycle,
+    type, channel, controller, increment,
   }) {
-    let modifiedValue;
     const sourceValue = midiCCState.getValue({ channel, controller });
-    if (type === 'analog') modifiedValue = sourceValue + increment;
-    if (type === 'digital' && !controllerCycle) modifiedValue = (sourceValue === 127) ? 0 : 127;
-    if (type === 'digital' && controllerCycle) modifiedValue = 127;
+    const modifiedValue = (type === 'analog')
+      ? sourceValue + increment
+      : 127;
 
     return MidiNormalizer.value(modifiedValue);
   }
@@ -64,8 +76,8 @@ class KeyboardService extends Keyboard {
     log.debug(this.#config);
     this.on('keypress', (keypressEvent) => {
       log.debug(keypressEvent);
-
-      const configuredKey = getConfiguredKey(this.#config, keypressEvent.sequence);
+      const sequence = getNormalizedSequence(keypressEvent);
+      const configuredKey = getConfiguredKey(this.#config, sequence);
 
       if (configuredKey) {
         const {
@@ -81,7 +93,6 @@ class KeyboardService extends Keyboard {
           channel,
           controller: normalizedMidiController,
           increment,
-          controllerCycle: controller.cycle || undefined,
         });
 
         const normalizedMidiMessage = MidiNormalizer.message({

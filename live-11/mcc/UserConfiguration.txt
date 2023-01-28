@@ -231,14 +231,14 @@ TrackMuteButton8: -1
 InvertMuteButtonFeedback: True
 
 # TrackSoloButton1-TrackSoloButton8 control Track soloing.
-TrackSoloButton1: -1
-TrackSoloButton2: -1
-TrackSoloButton3: -1
-TrackSoloButton4: -1
-TrackSoloButton5: -1
-TrackSoloButton6: -1
-TrackSoloButton7: -1
-TrackSoloButton8: -1
+TrackSoloButton1: 57
+TrackSoloButton2: 59
+TrackSoloButton3: 61
+TrackSoloButton4: 63
+TrackSoloButton5: 86
+TrackSoloButton6: 88
+TrackSoloButton7: 90
+TrackSoloButton8: 103
 
 # TrackSelectButton1-TrackSelectButton8 select Tracks.
 TrackSelectButton1: -1
@@ -251,14 +251,14 @@ TrackSelectButton7: -1
 TrackSelectButton8: -1
 
 # TrackArmButton1-TrackArmButton8 control Track arming.
-TrackArmButton1: -1
-TrackArmButton2: -1
-TrackArmButton3: -1
-TrackArmButton4: -1
-TrackArmButton5: -1
-TrackArmButton6: -1
-TrackArmButton7: -1
-TrackArmButton8: -1
+TrackArmButton1: 58
+TrackArmButton2: 60
+TrackArmButton3: 62
+TrackArmButton4: 85
+TrackArmButton5: 87
+TrackArmButton6: 89
+TrackArmButton7: 102
+TrackArmButton8: 104
 
 # NextBankButton and PrevBankButton select the next or
 # previous bank of 8 Tracks for the controls above to
@@ -298,10 +298,10 @@ MixerButtonsToggle: False
 # transport-related features.
 
 # StopButton stops playback.
-StopButton: 3
+StopButton: 56
 
 # PlayButton starts playback.
-PlayButton: 9
+PlayButton: 55
 
 # RecButton toggles Arrangement Record.
 RecButton: -1
@@ -319,10 +319,10 @@ MetroButton: -1
 LoopButton: -1
 
 # RwdButton rewinds playback.
-RwdButton: -1
+RwdButton: 106
 
 # FwdButton fast-forwards playback.
-FfwdButton: -1
+FfwdButton: 105
 
 # PunchInButton controls Punch-In.
 PunchInButton: -1
