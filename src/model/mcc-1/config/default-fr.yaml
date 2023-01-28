@@ -198,3 +198,8 @@ key:
     increment: -1
     controller: 54
     channel: 0
+
+  - sequence: ' '
+    increment: 127
+    controller: 9
+    channel: 0
