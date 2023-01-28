@@ -28,6 +28,13 @@ export default class ApplicationService {
       });
       slave.start();
     }
+
+    if (config.mode === 'local') {
+      const { keyMappingConfigFile } = config;
+      const keyMappingConfig = Config.get(keyMappingConfigFile);
+      const local =
+    }
+
   }
 }
 

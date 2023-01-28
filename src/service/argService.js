@@ -1,3 +1,4 @@
+// TODO : add mandatory param handler
 import arg from 'arg';
 import { getInputs, getOutputs } from 'remote-midi';
 import { log } from '#src/lib/log';
@@ -15,10 +16,10 @@ const showHelp = () => {
   log('');
   log('     Required options:');
   log('');
-  log('   -m    --mode                -- [master\\slave]');
-  log('   -o    --interface-out        -- midi out interface name (needed on server mode)');
-  log('   -h    --host                -- host');
-  log('   -p    --port                -- port');
+  log('   -m    --mode                -- [master\\slave\\local]');
+  log('   -o    --interface-out       -- midi out interface name (needed on master and local mode)');
+  log('   -h    --host                -- host (needed on master and slave mode )');
+  log('   -p    --port                -- port (needed on master and slave mode');
   log('   -c    --config              -- config yaml file with midi key mapping');
   log('');
   log('     Extra options:');
@@ -33,6 +34,8 @@ const showHelp = () => {
   log('slave example :');
   log(name, '-m slave -h 192.168.0.1 -p 7070');
   log('');
+  log('local example : ');
+  log(name, '-m local -o mcc-out');
   log('version', version, author, license);
   process.exit(0);
 };
@@ -102,6 +105,10 @@ argService.slaveConfig = {
   host: argService.host,
   port: argService.port,
   keyMappingConfigFile: argService.config,
+};
+
+argService.localConfig = {
+  midiOutputDeviceName: argService.interfaceOut,
 };
 
 export default argService;
