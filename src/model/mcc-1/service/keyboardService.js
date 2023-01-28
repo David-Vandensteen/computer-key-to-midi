@@ -24,8 +24,13 @@ class KeyboardService extends Keyboard {
       log.debug(keypressing);
       const key = this.#config.key.find(({ sequence }) => sequence === keypressing.sequence);
       if (key) {
-        const { controller, channel, increment } = key;
-        const value = midiCCState.getValue({ channel, controller }) + increment;
+        let value;
+        const {
+          controller, channel, increment, type,
+        } = key;
+        const sourceValue = midiCCState.getValue({ channel, controller });
+        if (type === 'analog') value = sourceValue + increment;
+        if (type === 'digital') value = (sourceValue === 127) ? 0 : 127;
         const normalizedMessage = MidiNormalizer.message({
           channel,
           value,
