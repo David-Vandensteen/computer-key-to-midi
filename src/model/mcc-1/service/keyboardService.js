@@ -41,9 +41,9 @@ class KeyboardService extends Keyboard {
       if (this.#state[sequenceId].cycleIndex >= controller.cycle.length) {
         this.#state[sequenceId].cycleIndex = 0;
       }
-      return normalizedMidiController;
+      return MidiNormalizer.controller(normalizedMidiController);
     }
-    return controller;
+    return MidiNormalizer.controller(controller);
   }
 
   static #getMidiValue({
@@ -55,7 +55,7 @@ class KeyboardService extends Keyboard {
     if (type === 'digital' && !controllerCycle) modifiedValue = (sourceValue === 127) ? 0 : 127;
     if (type === 'digital' && controllerCycle) modifiedValue = 127;
 
-    return modifiedValue;
+    return MidiNormalizer.value(modifiedValue);
   }
 
   start() {
