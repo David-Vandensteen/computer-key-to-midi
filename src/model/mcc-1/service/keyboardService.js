@@ -17,6 +17,8 @@ const getNormalizedSequence = (keypressEvent) => {
   if (keypressEvent.name === 'left' && keypressEvent.code === '[D') return '\\x1B[D';
   if (keypressEvent.name === 'up' && keypressEvent.code === '[A') return '\\x1B[A';
   if (keypressEvent.name === 'down' && keypressEvent.code === '[B') return '\\x1B[B';
+  if (keypressEvent.name === 'pageup' && keypressEvent.code === '[5~') return '\\x1B[5~';
+  if (keypressEvent.name === 'pagedown' && keypressEvent.code === '[6~') return '\\x1B[6~';
   return keypressEvent.sequence;
   // TODO : page up, page down, home, end, enter
   // TODO : F1, F2, ...
