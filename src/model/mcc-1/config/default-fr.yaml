@@ -241,5 +241,8 @@ key:
 
   - sequence: ' '
     type: digital
-    controller: 9
+    controller:
+      cycle:
+        - 9
+        - 3
     channel: 0
