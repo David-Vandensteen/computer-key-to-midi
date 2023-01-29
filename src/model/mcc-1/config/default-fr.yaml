@@ -239,6 +239,7 @@ key:
     controller: 54
     channel: 0
 
+  # Transport play button and stop button
   - sequence: ' '
     type: digital
     controller:
@@ -246,3 +247,24 @@ key:
         - 55
         - 56
     channel: 0
+
+    # Right arrow
+  - sequence: '\u001b[C'
+    type: digital
+    controller: 105
+
+    # Left arrow
+  - sequence: '\u001b[D'
+    type: digital
+    controller: 106
+
+    # up arrow
+  - sequence: '\u001b[A'
+    type: digital
+    controller: 107
+
+    # down arrow
+  - sequence: '\u001b[B'
+    type: digital
+    controller: 108
+
