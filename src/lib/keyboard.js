@@ -10,6 +10,13 @@ export default class Keyboard extends EventEmitter {
     this.rawMode = true;
   }
 
+  static getNormalizedSequence(keypressEvent) {
+  // escape ansi code
+    const keypressEventJSON = JSON.stringify(keypressEvent);
+    const keypressEventJSONParsed = JSON.parse(keypressEventJSON.replace('\\', '\\\\'));
+    return keypressEventJSONParsed.sequence;
+  }
+
   start() {
     emitKeypressEvents(this.stdin);
     this.stdin.setRawMode(this.rawMode);
