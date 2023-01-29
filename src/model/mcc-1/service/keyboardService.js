@@ -10,21 +10,6 @@ const getConfiguredKey = (config, keypressSequence) => {
   return configuredKey;
 };
 
-const getNormalizedSequence = (keypressEvent) => {
-  // TODO : move to keyboard parent
-  // arrow
-  if (keypressEvent.name === 'right' && keypressEvent.code === '[C') return '\\x1B[C';
-  if (keypressEvent.name === 'left' && keypressEvent.code === '[D') return '\\x1B[D';
-  if (keypressEvent.name === 'up' && keypressEvent.code === '[A') return '\\x1B[A';
-  if (keypressEvent.name === 'down' && keypressEvent.code === '[B') return '\\x1B[B';
-  if (keypressEvent.name === 'pageup' && keypressEvent.code === '[5~') return '\\x1B[5~';
-  if (keypressEvent.name === 'pagedown' && keypressEvent.code === '[6~') return '\\x1B[6~';
-  return keypressEvent.sequence;
-  // TODO : page up, page down, home, end, enter
-  // TODO : F1, F2, ...
-  // TODO : tab
-};
-
 class KeyboardService extends Keyboard {
   #midiSender;
 
@@ -78,7 +63,8 @@ class KeyboardService extends Keyboard {
     log.debug(this.#config);
     this.on('keypress', (keypressEvent) => {
       log.debug(keypressEvent);
-      const sequence = getNormalizedSequence(keypressEvent);
+      const sequence = KeyboardService.getNormalizedSequence(keypressEvent);
+      console.log('DEBUG NORM SEQ :', sequence);
       const configuredKey = getConfiguredKey(this.#config, sequence);
 
       if (configuredKey) {

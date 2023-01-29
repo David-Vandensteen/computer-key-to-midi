@@ -211,21 +211,21 @@ key:
     channel: 0
 
     # Right arrow
-  - sequence: '\x1B[C'
+  - sequence: '\u001b[C'
     type: digital
     controller: 105
 
     # Left arrow
-  - sequence: '\x1B[D'
+  - sequence: '\u001b[D'
     type: digital
     controller: 106
 
     # up arrow
-  - sequence: '\x1B[A'
+  - sequence: '\u001b[A'
     type: digital
     controller: 107
 
     # down arrow
-  - sequence: '\x1B[B'
+  - sequence: '\u001b[B'
     type: digital
     controller: 108
