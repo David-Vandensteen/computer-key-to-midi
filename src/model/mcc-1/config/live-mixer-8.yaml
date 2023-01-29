@@ -1,124 +1,86 @@
 key:
+  # Track solo button & Track arm button
   - sequence: '&'
-    type: analog
-    increment: 1
-    controller: 3
+    type: digital
+    controller: 57
     channel: 0
 
   - sequence: 'a'
-    type: analog
-    increment: -1
-    controller: 3
+    type: digital
+    controller: 58
     channel: 0
 
   - sequence: 'é'
-    type: analog
-    increment: 1
-    controller: 9
+    type: digital
+    controller: 59
     channel: 0
 
   - sequence: 'z'
-    type: analog
-    increment: -1
-    controller: 9
+    type: digital
+    controller: 60
     channel: 0
 
   - sequence: '"'
-    type: analog
-    increment: 1
-    controller: 14
+    type: digital
+    controller: 61
     channel: 0
 
   - sequence: 'e'
-    type: analog
-    increment: -1
-    controller: 14
+    type: digital
+    controller: 62
     channel: 0
 
   - sequence: "'"
-    type: analog
-    increment: 1
-    controller: 15
+    type: digital
+    controller: 63
     channel: 0
 
   - sequence: 'r'
-    type: analog
-    increment: -1
-    controller: 15
+    type: digital
+    controller: 85
     channel: 0
 
   - sequence: '('
-    type: analog
-    increment: 1
-    controller: 22
+    type: digital
+    controller: 86
     channel: 0
 
   - sequence: 't'
-    type: analog
-    increment: -1
-    controller: 22
+    type: digital
+    controller: 87
     channel: 0
 
   - sequence: '-'
-    type: analog
-    increment: 1
-    controller: 23
+    type: digital
+    controller: 88
     channel: 0
 
   - sequence: 'y'
-    type: analog
-    increment: -1
-    controller: 23
+    type: digital
+    controller: 89
     channel: 0
 
   - sequence: 'è'
-    type: analog
-    increment: 1
-    controller: 24
+    type: digital
+    controller: 90
     channel: 0
 
   - sequence: 'u'
-    type: analog
-    increment: -1
-    controller: 24
+    type: digital
+    controller: 102
     channel: 0
 
   - sequence: '_'
-    type: analog
-    increment: 1
-    controller: 25
+    type: digital
+    controller: 103
     channel: 0
 
   - sequence: 'i'
-    type: analog
-    increment: -1
-    controller: 25
+    type: digital
+    controller: 104
     channel: 0
 
-  - sequence: 'ç'
-    type: analog
-    increment: 1
-    controller: 26
-    channel: 0
-
-  - sequence: 'o'
-    type: analog
-    increment: -1
-    controller: 26
-    channel: 0
-
-  - sequence: 'à'
-    type: analog
-    increment: 1
-    controller: 27
-    channel: 0
-
-  - sequence: 'p'
-    type: analog
-    increment: -1
-    controller: 27
-    channel: 0
-
+  # Volume slider
   - sequence: 'q'
     type: analog
     increment: 1
@@ -267,4 +229,3 @@ key:
   - sequence: '\u001b[B'
     type: digital
     controller: 108
-

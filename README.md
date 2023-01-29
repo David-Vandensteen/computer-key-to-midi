@@ -17,11 +17,12 @@ npm install
 
 ## Usage
 The software can run in two modes, master and slave.  
-The master mode is used to send MIDI data to a device, while the slave mode is used to receive MIDI data.
+The master mode is used to send MIDI data to a device received from slave.
 
 ### Master mode
-To run the software in master mode, you will need to specify the host and port of the slave device, as well as the name of the MIDI output device you want to use.  
+To run the software in master mode, you will need to specify the host and port, as well as the name of the MIDI output device you want to use.  
 You can use the command 
+
 ```npm
 npm run master -- -i <input interface> -o <output interface> -h <host> -p <port>
 ```
@@ -29,7 +30,8 @@ npm run master -- -i <input interface> -o <output interface> -h <host> -p <port>
 ### Slave mode
 To run the software in slave mode, you will need to specify the host and port of the master device.  
 You can use the command 
-```
+
+```npm
 npm run slave -- -h <host> -p <port>
 ```
 You can also specify a configuration file with `--config <config_file>`
