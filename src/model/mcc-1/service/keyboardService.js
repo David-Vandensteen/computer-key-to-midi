@@ -5,34 +5,91 @@ import { log } from '#src/lib/log';
 
 const midiCCState = MidiCCState.getInstance();
 
+const getConfiguredKey = (config, keypressSequence) => {
+  const configuredKey = config.key.find(({ sequence }) => sequence === keypressSequence);
+  return configuredKey;
+};
+
 class KeyboardService extends Keyboard {
   #midiSender;
 
   #config;
 
+  #state = [];
+
   constructor({ config, midiSender }) {
     super();
     this.#config = config;
     this.#midiSender = midiSender;
+    log.debug('add ID on each sequence');
+    this.#config.key.map((k, index) => {
+      this.#config.key[index].id = index;
+      if (k.controller.cycle) {
+        this.#state[index] = {
+          cycleIndex: 0,
+        };
+      }
+      return k;
+    });
+  }
+
+  #getNormalizedMidiController({ controller, sequenceId }) {
+    if (controller?.cycle) {
+      const { cycleIndex } = this.#state[sequenceId];
+      const normalizedMidiController = controller.cycle[cycleIndex];
+      this.#state[sequenceId].cycleIndex += 1;
+      if (this.#state[sequenceId].cycleIndex >= controller.cycle.length) {
+        this.#state[sequenceId].cycleIndex = 0;
+      }
+      return MidiNormalizer.controller(normalizedMidiController);
+    }
+    return MidiNormalizer.controller(controller);
+  }
+
+  static #getMidiValue({
+    type, channel, controller, increment,
+  }) {
+    const sourceValue = midiCCState.getValue({ channel, controller });
+    const modifiedValue = (type === 'analog')
+      ? sourceValue + increment
+      : 127;
+
+    return MidiNormalizer.value(modifiedValue);
   }
 
   start() {
     super.start();
     log.title('midi mapping :');
     log.debug(this.#config);
-    this.on('keypress', (keypressing) => {
-      log.debug(keypressing);
-      const key = this.#config.key.find(({ sequence }) => sequence === keypressing.sequence);
-      if (key) {
-        const { controller, channel, increment } = key;
-        const value = midiCCState.getValue({ channel, controller }) + increment;
-        const normalizedMessage = MidiNormalizer.message({
+    this.on('keypress', (keypressEvent) => {
+      const sequence = KeyboardService.getNormalizedSequence(keypressEvent);
+      log.debug('key trigger sequence :', sequence);
+      const configuredKey = getConfiguredKey(this.#config, sequence);
+
+      if (configuredKey) {
+        const {
+          id, controller, channel, increment, type,
+        } = configuredKey;
+
+        const normalizedMidiController = this.#getNormalizedMidiController(
+          { controller, sequenceId: id },
+        );
+
+        const modifiedValue = KeyboardService.#getMidiValue({
+          type,
           channel,
-          value,
-          controller,
+          controller: normalizedMidiController,
+          increment,
         });
-        midiCCState.set(normalizedMessage);
-        this.#midiSender('cc', normalizedMessage);
+
+        const normalizedMidiMessage = MidiNormalizer.message({
+          channel,
+          value: modifiedValue,
+          controller: normalizedMidiController,
+        });
+
+        midiCCState.set(normalizedMidiMessage);
+        this.#midiSender('cc', normalizedMidiMessage);
       }
     });
     return this;
