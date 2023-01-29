@@ -62,9 +62,8 @@ class KeyboardService extends Keyboard {
     log.title('midi mapping :');
     log.debug(this.#config);
     this.on('keypress', (keypressEvent) => {
-      log.debug(keypressEvent);
       const sequence = KeyboardService.getNormalizedSequence(keypressEvent);
-      console.log('DEBUG NORM SEQ :', sequence);
+      log.debug('key trigger sequence :', sequence);
       const configuredKey = getConfiguredKey(this.#config, sequence);
 
       if (configuredKey) {

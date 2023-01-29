@@ -11,7 +11,11 @@ export default class Keyboard extends EventEmitter {
   }
 
   static getNormalizedSequence(keypressEvent) {
-  // escape ansi code
+    // excape " and  \
+    if (keypressEvent.sequence === '"') return '"';
+    if (keypressEvent.sequence === '\\') return '\\';
+
+    // escape ansi code
     const keypressEventJSON = JSON.stringify(keypressEvent);
     const keypressEventJSONParsed = JSON.parse(keypressEventJSON.replace('\\', '\\\\'));
     return keypressEventJSONParsed.sequence;
