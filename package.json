@@ -15,7 +15,7 @@
     "lint": "eslint src",
     "package": "npm-run-all package:caxa package:conf",
     "package:conf": "npx ncp src/model/mcc-1/config/default-fr.yaml dist/mcc.yaml && npx ncp src/model/mcc-1/config/live-mixer-8.yaml dist/live-mixer-8.yaml",
-    "package:caxa": "npx caxa --input . --output dist/mcc.exe --exclude dist --exclude live-11 -- {{caxa}}/node_modules/.bin/node.exe {{caxa}}/src/index.js"
+    "package:caxa": "npx caxa --input . --output dist/mcc.exe --exclude dist --exclude external -- {{caxa}}/node_modules/.bin/node.exe {{caxa}}/src/index.js"
   },
   "repository": {
     "type": "git",
