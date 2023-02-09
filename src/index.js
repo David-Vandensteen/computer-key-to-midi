@@ -1,7 +1,7 @@
-import { ApplicationConfigService } from '#src/service/applicationConfigService';
-import { argService } from '#src/service/argService';
-import { ApplicationService } from '#src/service/applicationService';
+import { ApplicationConfigService } from '#src/service/applicationConfig';
+import { argService } from '#src/service/arg';
+import { ApplicationService } from '#src/service/application';
 
 // TODO : improve abstract path for application.yaml
-const config = ApplicationConfigService.get({ applicationConfigFile: ['src/config/application.yaml', 'config/application.yaml'], argService });
+const config = ApplicationConfigService.get(['src/config/application.yaml', 'config/application.yaml'], argService);
 ApplicationService.run(config);

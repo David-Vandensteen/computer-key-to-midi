@@ -1,6 +1,6 @@
 import { rMidiClient, TCPMessage } from 'remote-midi';
 import { MidiCCState } from '#src/lib/midiCCState';
-import { KeyboardService } from '#src/model/mcc-1/service/keyboardService';
+import { KeyboardService } from '#src/model/mcc-1/service/keyboard';
 import { log } from '#src/lib/log';
 
 const midiCCState = MidiCCState.getInstance();

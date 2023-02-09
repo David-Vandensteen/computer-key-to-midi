@@ -1,7 +1,7 @@
 import { Config } from '#src/lib/config';
 
 export default class ApplicationConfigService {
-  static get({ applicationConfigFile, argService }) {
+  static get(applicationConfigFile, argService) {
     argService.checkArgumentsAndHelp();
     const applicationConfig = Config.get(applicationConfigFile);
 

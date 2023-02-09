@@ -1,5 +1,5 @@
-import { MasterRunnerService } from '#src/service/masterRunnerService';
-import { SlaveRunnerService } from '#src/service/slaveRunnerService';
+import { MasterRunnerService } from '#src/service/masterRunner';
+import { SlaveRunnerService } from '#src/service/slaveRunner';
 import { Config } from '#src/lib/config';
 
 export default class ApplicationService {
