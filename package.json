@@ -9,7 +9,7 @@
     "master": "node src/index.js -m master",
     "slave": "node src/index.js -m slave",
     "test:slave:default-config": "node src/index.js -m slave -h 127.0.0.1 -p 7070",
-    "test:slave:live-mixer-8" : "node src/index.js -m slave -h 127.0.0.1 -p 7070 --config src/model/mcc-1/config/live-mixer-8.yaml",
+    "test:slave:live-mixer-8": "node src/index.js -m slave -h 127.0.0.1 -p 7070 --config src/model/mcc-1/config/live-mixer-8.yaml",
     "test:slave": "node src/index.js -m slave -h 127.0.0.1 -p 7070 --config src/model/mcc-1/config/default-fr.yaml",
     "test:master": "node src/index.js -m master -i mcc-in -o mcc-out -h 127.0.0.1 -p 7070",
     "lint": "eslint src",
@@ -34,12 +34,12 @@
     "app-root-path": "^3.1.0",
     "arg": "^5.0.2",
     "chalk": "^5.2.0",
-    "fs-extra": "^11.1.0",
+    "fs-extra": "^11.1.1",
     "remote-midi": "git@github.com:David-Vandensteen/remote-midi.git#develop",
     "yaml": "^2.2.1"
   },
   "devDependencies": {
-    "eslint": "^8.32.0",
+    "eslint": "^8.37.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.27.5",
