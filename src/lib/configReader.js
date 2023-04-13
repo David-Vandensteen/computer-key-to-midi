@@ -15,7 +15,7 @@ const getFromFile = (file) => {
   return undefined;
 };
 
-export default class Config {
+export default class ConfigReader {
   static getAvailableFile(configPaths) {
     const processedConfigPaths = Array.isArray(configPaths) ? configPaths : [configPaths];
     processedConfigPaths.map((configPath) => {
@@ -28,11 +28,11 @@ export default class Config {
 
   static get(configPaths) {
     log.title('Loading config file...');
-    const foundPath = Config.getAvailableFile(configPaths);
+    const foundPath = ConfigReader.getAvailableFile(configPaths);
     if (foundPath) return getFromFile(foundPath);
 
     throw new Error('No config file found');
   }
 }
 
-export { Config };
+export { ConfigReader };

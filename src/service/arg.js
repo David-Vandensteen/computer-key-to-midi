@@ -16,14 +16,14 @@ const showHelp = () => {
   log('     Required options:');
   log('');
   log('   -m    --mode                -- [master\\slave]');
-  log('   -o    --interface-out        -- midi out interface name (needed on server mode)');
+  log('   -o    --interface-out       -- midi out interface name (needed on server mode)');
   log('   -h    --host                -- host');
   log('   -p    --port                -- port');
-  log('   -c    --config              -- config yaml file with midi key mapping');
+  log('   -k    --key                 -- mapping config key in yaml format');
   log('');
   log('     Extra options:');
   log('');
-  log('   -i    --interface-in        -- midi in interface name');
+  log('   -i         --interface-in   -- midi in interface name');
   log('   --list     -l               -- show available midi interfaces');
   log('   --help                      -- show help');
   log('');
@@ -45,7 +45,7 @@ class ArgService {
       '--mode': String,
       '--host': String,
       '--port': Number,
-      '--config': String,
+      '--key': String,
       '--list': Boolean,
       '--help': Boolean,
 
@@ -55,7 +55,7 @@ class ArgService {
       '-l': '--list',
       '-h': '--host',
       '-p': '--port',
-      '-c': '--config',
+      '-k': '--key',
       '-m': '--mode',
     });
   }
@@ -70,7 +70,7 @@ class ArgService {
 
   get interfaceOut() { return this.args['--interface-out']; }
 
-  get config() { return this.args['--config']; }
+  get key() { return this.args['--key']; }
 
   get list() { return this.args['--list']; }
 
@@ -92,6 +92,7 @@ class ArgService {
 const argService = new ArgService();
 
 argService.masterConfig = {
+  mode: 'master',
   host: argService.host,
   port: argService.port,
   midiOutputDeviceName: argService.interfaceOut,
@@ -99,9 +100,15 @@ argService.masterConfig = {
 };
 
 argService.slaveConfig = {
+  mode: 'slave',
   host: argService.host,
   port: argService.port,
-  keyMappingConfigFile: argService.config,
+  keyMappingConfigFile: argService.key,
+};
+
+argService.getConfig = () => {
+  const config = (argService.mode === 'slave') ? argService.slaveConfig : argService.masterConfig;
+  return config;
 };
 
 export default argService;

@@ -1,6 +1,5 @@
 import { MasterRunnerService } from '#src/service/masterRunner';
 import { SlaveRunnerService } from '#src/service/slaveRunner';
-import { Config } from '#src/lib/config';
 
 export default class ApplicationService {
   static run(config) {
@@ -19,8 +18,7 @@ export default class ApplicationService {
     }
 
     if (config.mode === 'slave') {
-      const { keyMappingConfigFile } = config;
-      const keyMappingConfig = Config.get(keyMappingConfigFile);
+      const { keyMappingConfig } = config;
       const slave = new SlaveRunnerService({
         host,
         port,
