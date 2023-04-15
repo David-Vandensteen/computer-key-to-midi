@@ -4,13 +4,13 @@ import YAMLLoader from '#src/lib/YAMLLoader';
 
 export default class ConfigManager {
   static get(applicationConfigFiles) {
-    if (!applicationConfigFiles) throw new Error('missing application config file');
+    if (!applicationConfigFiles) throw new Error('Application config file missing');
     argService.checkArgumentsAndHelp();
 
     const applicationConfig = ApplicationConfigService.get(applicationConfigFiles);
-    const cliConfig = argService.getConfig();
+    const cliOptions = argService.getOptions();
 
-    const config = { ...applicationConfig, ...cliConfig };
+    const config = { ...applicationConfig, ...cliOptions };
     const { keyMappingConfigFile, defaultKeyMappingFiles } = config;
 
     if (config.mode === 'slave') {

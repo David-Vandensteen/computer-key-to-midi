@@ -106,7 +106,7 @@ argService.slaveConfig = {
   keyMappingConfigFile: argService.key,
 };
 
-argService.getConfig = () => {
+argService.getOptions = () => {
   const config = (argService.mode === 'slave') ? argService.slaveConfig : argService.masterConfig;
   return config;
 };
