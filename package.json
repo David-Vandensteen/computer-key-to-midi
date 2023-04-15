@@ -8,6 +8,7 @@
     "start": "node src/index.js",
     "master": "node src/index.js -m master",
     "slave": "node src/index.js -m slave",
+    "test": "mocha",
     "test:slave:default-config": "node src/index.js -m slave -h 127.0.0.1 -p 7070",
     "test:slave:live-mixer-8": "node src/index.js -m slave -h 127.0.0.1 -p 7070 -k src/model/mcc-1/config/live-mixer-8.yaml",
     "test:slave": "node src/index.js -m slave -h 127.0.0.1 -p 7070 -k src/model/mcc-1/config/default-fr.yaml",
