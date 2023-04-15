@@ -1,10 +1,10 @@
-import { ConfigReader } from '#src/lib/configReader';
+import YAMLReader from '#src/lib/YAMLReader';
 
 export default class ApplicationConfigService {
   static get(appConfigFiles) {
     return {
       defaultApplicationConfigFiles: appConfigFiles,
-      ...ConfigReader.get(appConfigFiles),
+      ...YAMLReader(appConfigFiles[0], { fallBack: appConfigFiles }),
     };
   }
 }

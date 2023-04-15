@@ -1,30 +1,36 @@
-/* eslint-disable no-sequences */
 let instance;
 
-class MidiCCState {
-  #state = [];
+// eslint-disable-next-line no-unused-vars
+const decode = (id) => {
+  const controller = Math.floor(id / 128);
+  const channel = id % 128;
+  return { controller, channel };
+};
+
+const encode = (controller, channel) => controller * 128 + channel;
+
+export default class MIDIControllerStore {
+  #cache = new Map();
 
   static getInstance() {
-    if (!instance) instance = new MidiCCState();
+    if (!instance) instance = new MIDIControllerStore();
     return instance;
   }
 
-  get() { return this.#state; }
-
   getValue({ controller, channel }) {
-    return this.#state[channel || 0, controller] || 0;
+    const key = encode(controller, channel);
+    return this.#cache.get(key) ?? 0;
   }
 
   reset() {
-    this.#state = [];
+    this.#cache.clear();
     return this;
   }
 
   set({ controller, channel, value }) {
-    this.#state[channel || 0, controller] = value;
+    this.#cache.set(encode(controller, channel), value);
     return this;
   }
 }
 
-export default MidiCCState;
-export { MidiCCState };
+export { MIDIControllerStore };

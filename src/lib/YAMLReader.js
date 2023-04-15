@@ -15,6 +15,31 @@ const getFromFile = (file) => {
   return undefined;
 };
 
+const getAvailableFile = (files) => {
+  console.log('files', files);
+  let processedFiles = null;
+  processedFiles = Array.isArray(files) ? files : [files];
+  processedFiles.map((file) => {
+    processedFiles.push(resolve(file));
+    return file;
+  });
+  const foundedFile = processedFiles.find((file) => existsSync(file) === true);
+  return foundedFile;
+};
+
+export default (yamlFile, options) => {
+  console.log('option', options);
+  if (options && !options?.fallBack) {
+    throw new Error('fallBack option not found');
+  } else {
+    const foundedFile = getAvailableFile([yamlFile, ...options?.fallBack || '']);
+    if (foundedFile) return getFromFile();
+    throw new Error('No YAML file was founded');
+  }
+};
+
+/*
+
 export default class ConfigReader {
   static getAvailableFile(configPaths) {
     const processedConfigPaths = Array.isArray(configPaths) ? configPaths : [configPaths];
@@ -34,5 +59,4 @@ export default class ConfigReader {
     throw new Error('No config file found');
   }
 }
-
-export { ConfigReader };
+*/

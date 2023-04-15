@@ -1,6 +1,6 @@
 import { argService } from '#src/service/arg';
 import { ApplicationConfigService } from '#src/service/applicationConfig';
-import { ConfigReader } from '#src/lib/configReader';
+import YAMLReader from '#src/lib/YAMLReader';
 
 export default class ConfigManager {
   static get(applicationConfigFiles) {
@@ -13,10 +13,11 @@ export default class ConfigManager {
     const config = { ...applicationConfig, ...cliConfig };
     const { keyMappingConfigFile, defaultKeyMappingFiles } = config;
 
+
     if (config.mode === 'slave') {
       config.keyMappingConfig = (keyMappingConfigFile)
-        ? ConfigReader.get(keyMappingConfigFile)
-        : ConfigReader.get(defaultKeyMappingFiles);
+        ? YAMLReader(keyMappingConfigFile)
+        : YAMLReader('', { fallBack: defaultKeyMappingFiles });
     }
 
     console.log('config', config);
