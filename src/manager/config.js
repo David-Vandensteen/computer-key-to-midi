@@ -8,7 +8,7 @@ export default class ConfigManager {
     argService.checkArgumentsAndHelp();
 
     const applicationConfig = ApplicationConfigService.get(applicationConfigFiles);
-    const cliOptions = argService.getConfig();
+    const cliOptions = argService.getOptions();
 
     const config = { ...applicationConfig, ...cliOptions };
     const { keyMappingConfigFile, defaultKeyMappingFiles } = config;
