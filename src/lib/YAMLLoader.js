@@ -16,10 +16,7 @@ const getFromFile = (file) => {
 };
 
 const getAvailableFile = (yamlfile, fallBackFiles = []) => {
-  const processedFiles = [...fallBackFiles, yamlfile].map((file) => {
-    const resolvedFile = resolve(file);
-    return resolvedFile;
-  });
+  const processedFiles = [...fallBackFiles, yamlfile].map((file) => resolve(file));
 
   const foundedFile = processedFiles.find((file) => existsSync(file));
   return foundedFile;
