@@ -16,28 +16,16 @@ const getFromFile = (file) => {
 };
 
 const getAvailableFile = (yamlfile, fallBackFiles = []) => {
-  /*
-  const processedFiles = [yamlfile, ...fallBackFiles];
-  console.log('process files', processedFiles);
-  processedFiles.map((file) => {
-    processedFiles.push(resolve(file));
-    return file;
-  });
-  */
-
   const processedFiles = [...fallBackFiles, yamlfile].map((file) => {
     const resolvedFile = resolve(file);
-    console.log('resolved file:', resolvedFile);
     return resolvedFile;
   });
 
   const foundedFile = processedFiles.find((file) => existsSync(file));
-  console.log('foundedFile', foundedFile);
   return foundedFile;
 };
 
 export default (yamlFile, options) => {
-  console.log('option', options);
   if (options && !options?.fallBack) {
     throw new Error('fallBack option not found');
   } else {

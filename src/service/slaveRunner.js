@@ -7,7 +7,7 @@ const midiControllerState = MIDIControllerStore.getInstance();
 
 const handleMidiData = (dataBuffer) => {
   TCPMessage.decode(dataBuffer).map((message) => {
-    if (message.controller) midiCCState.set(message);
+    if (message.controller) midiControllerState.set(message);
     return message;
   });
 };
