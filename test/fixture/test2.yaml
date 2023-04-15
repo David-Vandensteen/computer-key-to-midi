@@ -1,0 +1,4 @@
+test2 :
+  - /tmp/prop1/test2.log
+  - /tmp/prop2/test2.log
+  - /tmp/prop3/test2.log

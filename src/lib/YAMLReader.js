@@ -15,15 +15,24 @@ const getFromFile = (file) => {
   return undefined;
 };
 
-const getAvailableFile = (files) => {
-  console.log('files', files);
-  let processedFiles = null;
-  processedFiles = Array.isArray(files) ? files : [files];
+const getAvailableFile = (yamlfile, fallBackFiles = []) => {
+  /*
+  const processedFiles = [yamlfile, ...fallBackFiles];
+  console.log('process files', processedFiles);
   processedFiles.map((file) => {
     processedFiles.push(resolve(file));
     return file;
   });
-  const foundedFile = processedFiles.find((file) => existsSync(file) === true);
+  */
+
+  const processedFiles = [...fallBackFiles, yamlfile].map((file) => {
+    const resolvedFile = resolve(file);
+    console.log('resolved file:', resolvedFile);
+    return resolvedFile;
+  });
+
+  const foundedFile = processedFiles.find((file) => existsSync(file));
+  console.log('foundedFile', foundedFile);
   return foundedFile;
 };
 
@@ -32,7 +41,7 @@ export default (yamlFile, options) => {
   if (options && !options?.fallBack) {
     throw new Error('fallBack option not found');
   } else {
-    const foundedFile = getAvailableFile([yamlFile, ...options?.fallBack || '']);
+    const foundedFile = getAvailableFile(yamlFile, options?.fallBack || '');
     if (foundedFile) return getFromFile(foundedFile);
     throw new Error('No YAML file was founded');
   }
