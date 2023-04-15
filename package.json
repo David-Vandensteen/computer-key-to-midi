@@ -15,7 +15,7 @@
     "lint": "eslint src",
     "package": "npm-run-all package:caxa package:conf",
     "package:conf": "npx ncp src/model/mcc-1/config/default-fr.yaml dist/mcc.yaml && npx ncp src/model/mcc-1/config/live-mixer-8.yaml dist/live-mixer-8.yaml",
-    "package:caxa": "npx caxa --input . --output dist/mcc.exe --exclude dist --exclude external -- {{caxa}}/node_modules/.bin/node.exe {{caxa}}/src/index.js"
+    "package:caxa": "npx caxa --input . --output dist/mcc.exe --exclude dist --exclude external --exclude test -- {{caxa}}/node_modules/.bin/node.exe {{caxa}}/src/index.js"
   },
   "repository": {
     "type": "git",
@@ -39,10 +39,12 @@
     "yaml": "^2.2.1"
   },
   "devDependencies": {
+    "chai": "^4.3.7",
     "eslint": "^8.38.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
     "npm-run-all": "^4.1.5"
   }
 }
