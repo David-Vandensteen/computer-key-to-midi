@@ -8,23 +8,31 @@ export default class ApplicationService {
 
     if (config.mode === 'master') {
       const { midiOutputDeviceName, midiInputDeviceName } = config;
-      const master = new MasterRunnerService({
-        host,
-        port,
-        midiInputDeviceName,
-        midiOutputDeviceName,
-      });
-      master.start();
+      try {
+        const master = new MasterRunnerService({
+          host,
+          port,
+          midiInputDeviceName,
+          midiOutputDeviceName,
+        });
+        master.start();
+      } catch (error) {
+        throw new Error(`Error while creating MasterRunnerService: ${error}`);
+      }
     }
 
     if (config.mode === 'slave') {
       const { keyMappingConfig } = config;
-      const slave = new SlaveRunnerService({
-        host,
-        port,
-        keyMappingConfig,
-      });
-      slave.start();
+      try {
+        const slave = new SlaveRunnerService({
+          host,
+          port,
+          keyMappingConfig,
+        });
+        slave.start();
+      } catch (error) {
+        throw new Error(`Error while creating SlaveRunnerService: ${error}`);
+      }
     }
   }
 }
