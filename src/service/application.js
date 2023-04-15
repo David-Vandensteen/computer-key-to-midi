@@ -4,9 +4,9 @@ import { SlaveRunnerService } from '#src/service/slaveRunner';
 export default class ApplicationService {
   static run(config) {
     if (!config?.mode ?? !config) throw new Error('invalid configuration');
-    const { host, port } = config;
+    const { host, port, mode } = config;
 
-    if (config.mode === 'master') {
+    if (mode === 'master') {
       const { midiOutputDeviceName, midiInputDeviceName } = config;
       try {
         const master = new MasterRunnerService({
@@ -21,7 +21,7 @@ export default class ApplicationService {
       }
     }
 
-    if (config.mode === 'slave') {
+    if (mode === 'slave') {
       const { keyMappingConfig } = config;
       try {
         const slave = new SlaveRunnerService({

@@ -4,7 +4,7 @@ import YAMLLoader from '#src/lib/YAMLLoader';
 
 export default class ConfigManager {
   static get(applicationConfigFiles) {
-    if (!applicationConfigFiles) throw new Error('missing application config file');
+    if (!applicationConfigFiles) throw new Error('Application config file missing');
     argService.checkArgumentsAndHelp();
 
     const applicationConfig = ApplicationConfigService.get(applicationConfigFiles);
