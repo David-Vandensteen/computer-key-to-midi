@@ -1,18 +1,23 @@
 /* eslint-disable no-sequences */
+let instance;
+
 class MidiCCState {
   #state = [];
 
   static getInstance() {
-    if (!this.instance) {
-      this.instance = new MidiCCState();
-    }
-    return this.instance;
+    if (!instance) instance = new MidiCCState();
+    return instance;
   }
 
   get() { return this.#state; }
 
   getValue({ controller, channel }) {
     return this.#state[channel || 0, controller] || 0;
+  }
+
+  reset() {
+    this.#state = [];
+    return this;
   }
 
   set({ controller, channel, value }) {
