@@ -1,9 +1,9 @@
 import { rMidiClient, TCPMessage } from 'remote-midi';
-import { MidiCCState } from '#src/lib/midiCCState';
+import { MIDIControllerStore } from '#src/lib/MIDIControllerStore';
 import { KeyboardService } from '#src/model/mcc-1/service/keyboard';
 import { log } from '#src/lib/log';
 
-const midiCCState = MidiCCState.getInstance();
+const midiControllerState = MIDIControllerStore.getInstance();
 
 const handleMidiData = (dataBuffer) => {
   TCPMessage.decode(dataBuffer).map((message) => {

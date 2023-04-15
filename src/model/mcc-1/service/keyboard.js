@@ -1,9 +1,9 @@
 import { MidiNormalizer } from 'remote-midi';
 import { Keyboard } from '#src/lib/keyboard';
-import { MidiCCState } from '#src/lib/midiCCState';
+import { MIDIControllerStore } from '#src/lib/MIDIControllerStore';
 import { log } from '#src/lib/log';
 
-const midiCCState = MidiCCState.getInstance();
+const midiControllerState = MIDIControllerStore.getInstance();
 
 const getConfiguredKey = (config, keypressSequence) => {
   const configuredKey = config.key.find(({ sequence }) => sequence === keypressSequence);
@@ -49,7 +49,7 @@ class KeyboardService extends Keyboard {
   static #getMidiValue({
     type, channel, controller, increment,
   }) {
-    const sourceValue = midiCCState.getValue({ channel, controller });
+    const sourceValue = midiControllerState.getValue({ channel, controller });
     const modifiedValue = (type === 'analog')
       ? sourceValue + increment
       : 127;
@@ -88,7 +88,7 @@ class KeyboardService extends Keyboard {
           controller: normalizedMidiController,
         });
 
-        midiCCState.set(normalizedMidiMessage);
+        midiControllerState.set(normalizedMidiMessage);
         this.#midiSender('cc', normalizedMidiMessage);
       }
     });
