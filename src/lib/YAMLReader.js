@@ -33,7 +33,7 @@ export default (yamlFile, options) => {
     throw new Error('fallBack option not found');
   } else {
     const foundedFile = getAvailableFile([yamlFile, ...options?.fallBack || '']);
-    if (foundedFile) return getFromFile();
+    if (foundedFile) return getFromFile(foundedFile);
     throw new Error('No YAML file was founded');
   }
 };
