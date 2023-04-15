@@ -8,9 +8,9 @@ export default class ConfigManager {
     argService.checkArgumentsAndHelp();
 
     const applicationConfig = ApplicationConfigService.get(applicationConfigFiles);
-    const cliConfig = argService.getConfig();
+    const cliOptions = argService.getConfig();
 
-    const config = { ...applicationConfig, ...cliConfig };
+    const config = { ...applicationConfig, ...cliOptions };
     const { keyMappingConfigFile, defaultKeyMappingFiles } = config;
 
     if (config.mode === 'slave') {
