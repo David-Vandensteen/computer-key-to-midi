@@ -1,6 +1,8 @@
 import { ApplicationService } from '#src/service/application';
-import { ConfigController } from '#src/controller/config';
+import { ConfigManager } from '#src/manager/config';
 
-const appConfigFiles = ['src/config/application.yaml', 'config/application.yaml'];
-
-ApplicationService.run(ConfigController.get(appConfigFiles));
+ApplicationService.run(
+  ConfigManager.get([
+    'src/config/application.yaml',
+    'config/application.yaml']),
+);
