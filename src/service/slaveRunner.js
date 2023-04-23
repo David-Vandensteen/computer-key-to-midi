@@ -13,7 +13,7 @@ const handleMidiData = (dataBuffer) => {
 };
 
 const clientStart = (TCPConfig, keyMappingConfig) => {
-  const midiClient = rMidiClient(TCPConfig);
+  const midiClient = rMidiClient(TCPConfig.host, TCPConfig.port);
   midiClient.on('data', handleMidiData);
   midiClient.start();
   const key = new KeyboardService({
@@ -28,7 +28,7 @@ export default class SlaveRunnerService {
 
   #keyMappingConfig;
 
-  constructor({ host, port, keyMappingConfig }) {
+  constructor(host, port, keyMappingConfig) {
     this.#TCPConfig = { host, port };
     this.#keyMappingConfig = keyMappingConfig;
   }
