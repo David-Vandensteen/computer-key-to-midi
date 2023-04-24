@@ -8,19 +8,6 @@ export default class MasterRunnerService {
 
   #options;
 
-  /*
-  constructor({
-    host, port, midiInputDeviceName, midiOutputDeviceName,
-  }) {
-    this.#config = {
-      host,
-      port,
-      midiInputDeviceName,
-      midiOutputDeviceName,
-    };
-  }
-  */
-
   constructor(host, port, options) {
     if (!host || !host) throw new Error('MasterRunner::host or port is undefined');
     this.#host = host;
