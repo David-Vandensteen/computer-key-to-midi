@@ -1,6 +1,5 @@
 import { readFileSync, existsSync } from 'fs';
 import { parse } from 'yaml';
-import { log } from '#src/lib/log';
 import appRootPath from 'app-root-path';
 
 const { resolve } = appRootPath;
@@ -8,10 +7,8 @@ const { resolve } = appRootPath;
 const getFromFile = (file) => {
   if (existsSync(file)) {
     const config = parse(readFileSync(file, 'utf8'));
-    log.info('config file found :', file);
     return config;
   }
-  log.error(file, 'not found');
   return undefined;
 };
 
