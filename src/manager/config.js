@@ -5,7 +5,6 @@ import YAMLLoader from '#src/lib/YAMLLoader';
 export default class ConfigManager {
   static get(applicationConfigFiles) {
     if (!applicationConfigFiles) throw new Error('Application config file missing');
-    argService.checkArgumentsAndHelp();
 
     const applicationConfig = ApplicationConfigService.get(applicationConfigFiles);
     const cliOptions = argService.getOptions();
@@ -18,8 +17,6 @@ export default class ConfigManager {
         ? YAMLLoader(keyMappingConfigFile)
         : YAMLLoader('', { fallBack: defaultKeyMappingFiles });
     }
-
-    console.log('config', config);
     return config;
   }
 }
