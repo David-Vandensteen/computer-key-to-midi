@@ -22,11 +22,11 @@ export default class ApplicationService {
     if (mode === 'slave') {
       const { keyMappingConfig } = config;
       try {
-        const slave = new SlaveRunnerService({
+        const slave = new SlaveRunnerService(
           host,
           port,
           keyMappingConfig,
-        });
+        );
         slave.start();
       } catch (error) {
         throw new Error(`Error while creating SlaveRunnerService: ${error}`);
