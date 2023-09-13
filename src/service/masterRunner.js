@@ -2,22 +2,21 @@ import { rMidiServer } from 'remote-midi';
 import { log } from '#src/lib/log';
 
 export default class MasterRunnerService {
-  #config;
+  #host;
 
-  constructor({
-    host, port, midiInputDeviceName, midiOutputDeviceName,
-  }) {
-    this.#config = {
-      host,
-      port,
-      midiInputDeviceName,
-      midiOutputDeviceName,
-    };
+  #port;
+
+  #options;
+
+  constructor(host, port, options) {
+    this.#host = host;
+    this.#port = port;
+    this.#options = options;
   }
 
   start() {
     try {
-      const midiServer = rMidiServer(this.#config);
+      const midiServer = rMidiServer(this.#host, this.#port, this.#options);
       midiServer.start();
     } catch (error) {
       log(error);
